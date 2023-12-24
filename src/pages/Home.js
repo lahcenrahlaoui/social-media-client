@@ -34,7 +34,7 @@ function Home() {
             {state.isLoading ? (
                 ""
             ) : (
-                <div className="grid grid-cols-12 gap-4 mt-16   w-full">
+                <div className="grid grid-cols-12 gap-4 mt-16    w-full">
                     <div className="col-span-3">
                         <div className="flex flex-col gap-2 col-span-4   px-3">
                             {/* <FormPost /> */}
