@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPost } from "../actions/postAction";
+import { setPost } from "../actions";
 
 import Editor, { createEditorStateWithText } from "@draft-js-plugins/editor";
 import createHashtagPlugin from "@draft-js-plugins/hashtag";
@@ -9,6 +9,7 @@ import createHashtagPlugin from "@draft-js-plugins/hashtag";
 import hashtagStyles from "../../src/hashtagStyles.module.css";
 import { convertToRaw } from "draft-js";
 import { BiX } from "react-icons/bi";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 {
     /* <img src="https://i.stack.imgur.com/dy62M.png" /> */
@@ -22,18 +23,24 @@ const FormPost = () => {
     const [image, setImage64] = useState("");
 
     const [focused, setFocused] = useState(false);
+
+    const { user } = useAuthContext();
     const editor = useRef(null);
 
     const onChange = (newEditorState) => {
         setContent(newEditorState);
     };
-
+    let inputNavbar;
     const focus = () => {
         editor?.current?.focus();
+        inputNavbar = editor?.current;
         setFocused(true);
     };
 
     const dispatch = useDispatch();
+
+    const divRef = useRef();
+    useEffect(() => {}, [focused]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -47,10 +54,11 @@ const FormPost = () => {
         } else {
             formData.append("image", image);
             formData.append("content", text);
+
             setContent(createEditorStateWithText(""));
             setImage64("");
 
-            dispatch(setPost(formData));
+            dispatch(setPost(formData, user));
         }
     };
 
@@ -58,16 +66,17 @@ const FormPost = () => {
         <>
             <form
                 onSubmit={onSubmit}
-                className="flex items-center justify-center w-full pt-5"
+                className="flex items-center justify-center w-full  "
                 onClick={focus}
             >
                 <div
-                    className={`flex flex-col bg-[#f4f4f4] focus:bg-red-200 border gap-2 cursor-text rounded-lg
+                    ref={divRef}
+                    className={`flex flex-col bg-white border gap-2 cursor-text rounded-lg
                     ${
                         focused
-                            ? " w-full border border-2 border-[#3498db]  "
+                            ? " w-full border border-[#3498db]  "
                             : " w-full"
-                    } transition-all transition ease-in  duration-200 delay-150
+                    } transition-all transition ease-in  duration-200 delay-100
                  `}
                     onBlur={() => setFocused(false)}
                 >

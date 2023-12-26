@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post.js";
 import { useEffect } from "react";
-import { getPosts } from "../actions/postAction.js";
+import { getPosts } from "../actions";
 import NavBar from "../components/NavBar.js";
 import Hero from "../components/Hero.js";
 import { Link } from "react-router-dom";

@@ -1,0 +1,63 @@
+import { setNewComment } from "../api";
+import { fetchCommentsByPost, setUserLike } from "../api";
+import {
+    GET_COMMENTS_ALL,
+    IS_LOADING_COMMENTS,
+    IS_NOT_LOADING_COMMENTS,
+    SET_COMMENTS_ALL,
+    SET_ONE_LIKE,
+} from "../constants";
+
+export const setOneLike = (id, user) => async (dispatch) => {
+    
+    const response = await setUserLike(id);
+
+    const changeThis = {
+        [response.data.id]: response.data.likes,
+    };
+
+    dispatch({
+        type: SET_ONE_LIKE,
+        payload: changeThis,
+    });
+};
+
+export const setComment = (data, user) => async (dispatch) => {
+    const response = await setNewComment(data);
+
+    console.log(response);
+
+    const comments = {
+        data: response.data,
+        postId: response.data.postId,
+    };
+
+    dispatch({
+        type: SET_COMMENTS_ALL,
+        payload: comments,
+    });
+};
+
+export const fetchComments = (data, user) => async (dispatch) => {
+    dispatch({
+        type: IS_LOADING_COMMENTS,
+    });
+
+    const response = await fetchCommentsByPost(data , user);
+
+    const comments = {
+        data: response.data,
+        postId: data.postId,
+    };
+
+    if (response.data.length > 0) {
+        dispatch({
+            type: GET_COMMENTS_ALL,
+            payload: comments,
+        });
+    } else {
+        dispatch({
+            type: IS_NOT_LOADING_COMMENTS,
+        });
+    }
+};

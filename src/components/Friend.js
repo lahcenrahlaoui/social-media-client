@@ -1,22 +1,20 @@
-import { BiSolidUserPlus } from "react-icons/bi";
-
 const Friend = ({ friend }) => {
     return (
-        <div className="flex justify-between w-full  bg-white border items-center mx-2 px-2 bg-rose-800">
-            <div className="flex items-center gap-2 h-16 w-full ">
+        <>
+            <div className="flex gap-4 w-full items-center mx-2 pl-3 pr-20  ">
                 <img
                     src={friend.img}
                     className="bg-yellow-200 rounded-full"
-                    style={{ width: 50, height: 50 }}
+                    style={{ width: 60, height: 60 }}
                 />
 
-                <div className="text-xs ">
-                    <div className="font-semibold">{friend.name}</div>
-                    <div>{friend.message}</div>
+                <div className="flex flex-col gap-2 text-xs w-full ">
+                    <div className="text-base text-blue-500">{friend.name}</div>
+                    <div className="cursor-pointer">add friend</div>
                 </div>
             </div>
-            <BiSolidUserPlus className="text-2xl hover:cursor-pointer" />
-        </div>
+            <span className="h-px w-full bg-gray-300 w-full"></span>
+        </>
     );
 };
 

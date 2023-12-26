@@ -1,13 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setOneLike } from "../actions/postAction";
+import { setOneLike } from "../actions";
 import { BiLike } from "react-icons/bi";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Like = ({item}) => {
 
+    const {user} = useAuthContext()
     const dispatch = useDispatch();
     const handleLike = () => {
-        dispatch(setOneLike(item.id));
+        dispatch(setOneLike(item.id , user));
     };
 
     const likesState = useSelector((state) => state.likes.data);

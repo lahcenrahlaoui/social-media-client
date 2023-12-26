@@ -1,69 +1,77 @@
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post.js";
 import { useEffect } from "react";
-import { getPost, getPosts } from "../actions/postAction.js";
+import { getPost, getPosts } from "../actions";
 import NavBar from "../components/NavBar.js";
 
 import FormPost from "../components/FormPost.js";
 import NavSide from "../components/NavSide.js";
 import FriendSide from "../components/FriendSide.js";
 import SearchComponent from "../components/SearchComponent.js";
-
-import { Box, Container, Divider, Grid, ListItem } from "@mui/material";
+import { useAuthContext } from "../hooks/useAuthContext.js";
 
 function Home() {
-    const dispatch = useDispatch();
     const state = useSelector((state) => state.posts);
 
+    const {user} = useAuthContext();
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getPosts());
-    }, [dispatch]);
+        console.log("888888888888888")
+        console.log("888888888888888")
+        console.log("888888888888888")
+        console.log("888888888888888")
+        if (user) {
+          
+            dispatch(getPosts(user));
+        }
+    }, [dispatch , user]);
 
     const renderItems = state?.data?.map((item) => {
         return (
             <div className={item.classes || ""} key={item.id}>
-                <Post item={item} isLoading={state.isLoading} />
+                <Post user={user} item={item} isLoading={state.isLoading} />
             </div>
         );
     });
 
     return (
         <div className="w-full pb-20">
-            <NavBar />
-            {/* <Hero /> */}
+            <NavBar user={user} />
+
             {state.isLoading ? (
                 ""
             ) : (
-                <div className="grid grid-cols-12 gap-4 mt-16    w-full">
-                    <div className="col-span-3">
-                        <div className="flex flex-col gap-2 col-span-4   px-3">
-                            {/* <FormPost /> */}
+                <div className="flex items-center justify-center gap-4 mt-14 pt-2  bg-[#F4F2F2] w-full">
+                    <div className="grid grid-cols-12 gap-4 w-11/12">
+                        <div className="flex flex-col gap-2 col-span-3 px-3  ">
                             <NavSide />
                         </div>
-                    </div>
-                    <div className="col-span-5  ">
-                        <div className="flex flex-col gap-4 items-center   ">
-                            <FormPost />
 
-                            <div className="flex justify-between items-center">
-                                <div className="flex gap-2">
-                                    <div>New posts </div>
-                                    <div>trend </div>
+                        <div className="col-span-5  ">
+                            <div className="flex flex-col gap-4 items-center   ">
+                                <FormPost user={user} />
+
+                                <div className="flex w-full text-sm justify-between items-center">
+                                    <div className="flex gap-2">
+                                        <div>New posts </div>
+                                        <div>trend </div>
+                                    </div>
+
+                                    <SearchComponent />
                                 </div>
 
-                                <SearchComponent />
-                            </div>
-
-                            <div className="flex items-center justify-center  w-full ">
-                                <div className="grid flex-1  w-full grid-cols-1 gap-4 ">
-                                    {renderItems}
+                                <div className="flex items-center justify-center  w-full ">
+                                    <div className="grid flex-1  w-full grid-cols-1 gap-4 ">
+                                        {renderItems}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-span-4">
-                        <div>
-                            <FriendSide />
+                        <div className="col-span-4">
+                            <div>
+                                <FriendSide />
+                            </div>
                         </div>
                     </div>
                 </div>

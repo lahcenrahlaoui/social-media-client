@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
-import { getPost } from "../actions/postAction.js";
+import { getPost } from "../actions";
 import { useLocation } from "react-router-dom";
 import NavBar from "../components/NavBar.js";
 

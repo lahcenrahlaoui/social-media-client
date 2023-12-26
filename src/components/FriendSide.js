@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { BiSolidUserPlus } from "react-icons/bi";
 
-import { getPost } from "../actions/postAction";
+import { getPost } from "../actions";
 import Friend from "./Friend";
 const FrinedSide = () => {
 
@@ -42,11 +42,11 @@ const FrinedSide = () => {
     })
 
     return (
-        <div className="relative h-full bg-yellow-200 ">
-            <div className="fixed flex flex-col items-center  bg-red-200 h-full ">
+        <div className="relative h-full bg-yellow-200 w-full bg-red-200 ">
+            <div className="fixed flex flex-col items-center h-full gap-3 w-fit  ">
                 <div className="font-2xl font-bold">suggestion</div>
 
-                <div className="grid grid-cols-1 gap-1 w-full ">{renderList}</div>
+                <div className="grid grid-cols-1 gap-3 w-full ">{renderList}</div>
             </div>
         </div>
     );

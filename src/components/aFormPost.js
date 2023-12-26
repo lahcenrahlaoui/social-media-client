@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPost } from "../actions/postAction";
+import { setPost } from "../actions";
 import { BiUpload } from "react-icons/bi";
 
 import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file

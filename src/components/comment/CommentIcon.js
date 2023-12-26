@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setOneLike } from "../actions/postAction";
+import { setOneLike } from "../../actions";
 import { BiComment } from "react-icons/bi";
 import axios from "axios";
 

@@ -1,15 +1,14 @@
-import { getPostById, getPostsAll, setNewPost, setUserLike } from "../api";
+import { getPostById, getPostsAll, setNewPost, setUserLike , setUserComment } from "../api";
 import {
     GET_POST,
     GET_POSTS_ALL,
     SET_POSTS_ALL,
     IS_LOADING,
     SET_LIKE,
-    SET_ONE_LIKE,
     SET_NEW_LIKE,
 } from "../constants";
 
-export const getPost = (id) => async (dispatch) => {
+export const getPost = (id , user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
@@ -21,12 +20,12 @@ export const getPost = (id) => async (dispatch) => {
     });
 };
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
 
-    const response = await getPostsAll();
+    const response = await getPostsAll(user);
 
     const ids = response.data.map((d) => d.id);
     const likes = response.data.map((d) => d.likes);
@@ -48,8 +47,8 @@ export const getPosts = () => async (dispatch) => {
     });
 };
 
-export const setPost = (data) => async (dispatch) => {
-    const response = await setNewPost(data);
+export const setPost = (data , user) => async (dispatch) => {
+    const response = await setNewPost(data , user);
 
     response.data.image = URL.createObjectURL(data.get("image"));
     // response.data.classes = "animate-slide-down"
@@ -68,15 +67,6 @@ export const setPost = (data) => async (dispatch) => {
     });
 };
 
-export const setOneLike = (id) => async (dispatch) => {
-    const response = await setUserLike(id);
 
-    const changeThis = {
-        [response.data.id]: response.data.likes,
-    };
 
-    dispatch({
-        type: SET_ONE_LIKE,
-        payload: changeThis,
-    });
-};
+

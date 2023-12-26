@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const ImageComponent = ({ image_thumbnail, image, id }) => {
     const [bigImage, setBigImage] = useState("");
     const [show, setShow] = useState(false);
-
+    const { user } = useAuthContext();
     useEffect(() => {
         imageRef?.current?.addEventListener("load", () => {
             setShow(true);
@@ -13,7 +14,16 @@ const ImageComponent = ({ image_thumbnail, image, id }) => {
 
         if (!image?.includes("blob")) {
             (async () => {
-                const newImage = await axios.get(`/api/posts/image/${id}`);
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
+
+                const newImage = await axios.get(
+                    `/api/posts/image/${id}`,
+                    config
+                );
                 setBigImage(newImage.data);
             })();
         } else {
