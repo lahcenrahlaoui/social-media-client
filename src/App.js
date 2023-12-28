@@ -1,16 +1,10 @@
 import React from "react";
-import {
-    BrowserRouter,
-    Navigate,
-    Route,
-    Routes
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useAuthContext } from "./hooks/useAuthContext.js";
 import Home from "./pages/Home.js";
 import Signin from "./pages/Signin.js";
 import Signup from "./pages/Signup.js";
-import Test from "./pages/Test.js";
 
 function App() {
     const { user } = useAuthContext();
@@ -19,11 +13,6 @@ function App() {
         <div className=" flex items-center justify-center app">
             <BrowserRouter>
                 <Routes>
-                    <Route
-                        exact
-                        path="/test"
-                        element={  <Test />  }
-                    />
                     <Route
                         exact
                         path="/signin"
