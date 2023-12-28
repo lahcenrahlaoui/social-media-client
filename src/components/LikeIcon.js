@@ -4,26 +4,24 @@ import { setOneLike } from "../actions";
 import { BiLike } from "react-icons/bi";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const Like = ({item}) => {
-
-    const {user} = useAuthContext()
+const Like = ({ item }) => {
+    const { user } = useAuthContext();
     const dispatch = useDispatch();
     const handleLike = () => {
-        dispatch(setOneLike(item.id , user));
+        if (user) {
+            dispatch(setOneLike(item._id, user));
+        }
     };
 
     const likesState = useSelector((state) => state.likes.data);
 
     const likes = likesState.filter((like) => {
-        if (item.id === Object.keys(like).join("")) {
+        if (item._id === Object.keys(like).join("")) {
             return Object.values(like);
         }
     });
 
     const regularLike = likes[0];
-
-
-
 
     return (
         <div

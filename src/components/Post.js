@@ -11,10 +11,21 @@ import ImageComponent from "./ImageComponent";
 import CommentIcon from "./comment/CommentIcon";
 import Comments from "./comment/Comments";
 import NewComment from "./comment/NewComment";
+import {
+    format,
+    compareAsc,
+    parseISO,
+    differenceInMinutes,
+    differenceInHours,
+    differenceInDays,
+    differenceInSeconds,
+} from "date-fns";
 
-const Post = ({ user , item, isLoading }) => {
+const Post = ({ user, item, isLoading }) => {
     // for text in post
     const [showMore, setShowMore] = useState(false);
+    // add comment
+    const [adds, setAdds] = useState(0);
 
     // to handle how much comments we should get
     const [skipValue, setSkipValue] = useState(0);
@@ -27,6 +38,21 @@ const Post = ({ user , item, isLoading }) => {
 
     const handleToggle = () => {
         setOpen((state) => !state);
+    };
+
+    const formateDate = (date) => {
+        let time = differenceInMinutes(new Date(), new Date(date)) + " m";
+        if (time > 59) {
+            time = differenceInHours(new Date(), new Date(date)) + " h";
+            if (time > 23) {
+                time = differenceInDays(new Date(), new Date(date)) + " d";
+                if (time > 4) {
+                    time = format(parseISO(date), "MM/dd/yyyy");
+                }
+            }
+        }
+
+        return time;
     };
 
     // for dropdown
@@ -112,11 +138,15 @@ const Post = ({ user , item, isLoading }) => {
             <div className="flex flex-col w-full gap-1 p-3">
                 <div className="flex justify-between px-2">
                     <div className="flex gap-2">
-                        <Avatar alt="Remy Sharp" src={item.image_small} />
+                        <img
+                            alt="Remy Sharp"
+                            src={item.image_user}
+                            className="w-10 h-10 rounded-full"
+                        />
 
                         <div className="text-sm font-semibold">
-                            <div>john deo</div>
-                            <div>2022-10-10</div>
+                            <div> {item.name}</div>
+                            <div>{formateDate(item.createdAt)}</div>
                         </div>
                     </div>
                     <div className="relative ">{data}</div>
@@ -140,17 +170,16 @@ const Post = ({ user , item, isLoading }) => {
                     <ImageComponent
                         image={item.image}
                         image_thumbnail={item.image_thumbnail}
-                        id={item.id}
+                        _id={item._id}
                     />
                 </div>
-                <div className="text-xs">you and others liked this</div>
             </div>
 
             <div className="flex justify-around w-full border-y ">
                 <Like item={item} />
 
                 <CommentIcon
-                    item={item}
+                    length={item.comments.length + adds}
                     onClick={() => {
                         setSeeComments(!seeComments);
                     }}
@@ -180,7 +209,11 @@ const Post = ({ user , item, isLoading }) => {
                             setSkipValue={setSkipValue}
                         />
                     )}
-                    <NewComment item={item} placeholder={"Add comment"} />
+                    <NewComment
+                        item={item}
+                        setAdds={setAdds}
+                        placeholder={"Add comment"}
+                    />
                 </div>
             </div>
         </div>

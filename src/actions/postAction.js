@@ -1,4 +1,10 @@
-import { getPostById, getPostsAll, setNewPost, setUserLike , setUserComment } from "../api";
+import {
+    getPostById,
+    getPostsAll,
+    setNewPost,
+    setUserLike,
+    setUserComment,
+} from "../api";
 import {
     GET_POST,
     GET_POSTS_ALL,
@@ -8,7 +14,7 @@ import {
     SET_NEW_LIKE,
 } from "../constants";
 
-export const getPost = (id , user) => async (dispatch) => {
+export const getPost = (id, user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
@@ -27,7 +33,7 @@ export const getPosts = (user) => async (dispatch) => {
 
     const response = await getPostsAll(user);
 
-    const ids = response.data.map((d) => d.id);
+    const ids = response.data.map((d) => d._id);
     const likes = response.data.map((d) => d.likes);
 
     const result = ids.map((item, idx) => {
@@ -36,6 +42,7 @@ export const getPosts = (user) => async (dispatch) => {
         };
     });
 
+ 
     dispatch({
         type: GET_POSTS_ALL,
         payload: response.data,
@@ -47,26 +54,24 @@ export const getPosts = (user) => async (dispatch) => {
     });
 };
 
-export const setPost = (data , user) => async (dispatch) => {
-    const response = await setNewPost(data , user);
+export const setPost = (data, user) => async (dispatch) => {
+    const response = await setNewPost(data, user);
 
     response.data.image = URL.createObjectURL(data.get("image"));
-    // response.data.classes = "animate-slide-down"
-    
+
     dispatch({
         type: SET_POSTS_ALL,
         payload: response.data,
     });
+
+    // this added hero to handle likes
+
+    
     const changeThis = {
-        [response.data.id]: response.data.likes,
+        [response.data._id]: response.data.likes,
     };
-    // this added hero to handle likes 
     dispatch({
         type: SET_NEW_LIKE,
         payload: changeThis,
     });
 };
-
-
-
-

@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@yaireo/tagify": "^4.17.9",
     "axios": "^1.6.2",
+    "date-fns": "^3.0.6",
     "draft-js": "^0.11.7",
     "draft-js-hashtag-plugin": "^2.0.4",
     "draft-js-plugins-editor": "^3.0.0",

@@ -1,28 +1,46 @@
 import React from "react";
-import PostDetails from "./pages/PostDetails.js";
-import Home from "./pages/Home.js";
-import NewPost from "./pages/NewPost.js";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Admin from "./pages/Admin.js";
+import {
+    BrowserRouter,
+    Navigate,
+    Route,
+    Routes
+} from "react-router-dom";
 import "./App.css";
-import Signup from "./pages/Signup.js";
+import { useAuthContext } from "./hooks/useAuthContext.js";
+import Home from "./pages/Home.js";
 import Signin from "./pages/Signin.js";
+import Signup from "./pages/Signup.js";
 
 function App() {
+    const { user } = useAuthContext();
 
     return (
         <div className=" flex items-center justify-center app">
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/signin" element={<Signin />} />
+                    <Route
+                        exact
+                        path="/signin"
+                        element={!user ? <Signin /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        exact
+                        path="/signup"
+                        element={!user ? <Signup /> : <Navigate to="/" />}
+                    />
 
-                    <Route exact path="/signup" element={<Signup />} />
+                    <Route
+                        exact
+                        path="/"
+                        element={user ? <Home /> : <Navigate to="/signin" />}
+                    />
 
-                    <Route exact path="/admin" element={<Admin />} />
+                    {/* 
+                    <Route exact path="/admin" element={user && <Admin />} />
 
-                    <Route exact path="/" element={<Home />} />
-                    {/* <Route path="/:id" element={<PostDetails />} /> */}
-                    <Route path="/createNew" element={<NewPost />} />
+                    <Route exact path="/" element={user && <Home />} />
+
+                    <Route path="/createNew" element={user && <NewPost />} /> */}
                 </Routes>
             </BrowserRouter>
         </div>

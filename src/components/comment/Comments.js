@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../actions";
 import { BiHeart } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { differenceInMinutes } from "date-fns";
 const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
     const { user } = useAuthContext();
     const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
             skipValue: skipValue,
         };
         if (user) {
-         
             dispatch(fetchComments(data, user));
             setSkipValue((state) => state + 3);
         }
@@ -29,12 +29,19 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
         if (seeComments && !skipValue) {
             handleFetchComments();
         }
-    }, [seeComments, item]);
+    }, [seeComments, item, user]);
+
+    const datex = (date) => {
+        let minutes = differenceInMinutes(new Date(), new Date(date));
+
+        return minutes;
+    };
 
     let renderComments;
     if (Object.keys(state.data).includes(item._id)) {
-        const c = state.data[item._id];
-        renderComments = c.map((comment, idx) => {
+        const comments = state.data[item._id];
+
+        renderComments = comments.map((comment, idx) => {
             return (
                 <React.Fragment key={idx}>
                     <div className="flex justify-between items-center ">
@@ -42,19 +49,16 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
                             <div>
                                 <img
                                     className=" w-10 h-10 rounded-full "
-                                    src={
-                                        "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                    }
+                                    src={comment.image}
                                 />
                             </div>
                             <div className="flex flex-col justify-center  ">
                                 <div className="text-xs font-semibold">
-                                    Michel Michel
+                                    {comment.name}
                                 </div>
                                 <p>{comment.content}</p>
                                 <p className="text-gray-600 text-xs">
-                                    {" "}
-                                    1 minute ago
+                                    {datex(comment.createdAt)} Minutes
                                 </p>
                             </div>
                         </div>

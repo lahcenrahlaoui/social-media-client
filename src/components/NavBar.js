@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import logo_page from "../images/logo_page.png";
 
-
 import { useLogout } from "../hooks/useLogout";
 const NavBar = ({ user }) => {
     const { logout } = useLogout();
@@ -16,13 +15,15 @@ const NavBar = ({ user }) => {
                 <img src={logo_page} style={{ width: 100, height: 50 }} />
 
                 <div className=" flex gap-20 items-center    ">
-                    <div>Home</div>
-                    <div>Pages</div>
-                    <div>Gruops</div>
-
                     {user ? (
                         <>
-                            <div>{user.email}</div>
+                            <div className="flex items-center gap-2">
+                                <div>{user.name}</div>
+                                <img
+                                    src={user.image}
+                                    className="w-10 h-10 rounded-full"
+                                />
+                            </div>
                             <Link
                                 to={"/signin"}
                                 className="text-xl font-semibold capitalize"

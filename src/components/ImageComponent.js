@@ -3,10 +3,11 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const ImageComponent = ({ image_thumbnail, image, id }) => {
+const ImageComponent = ({ image_thumbnail, image, _id }) => {
     const [bigImage, setBigImage] = useState("");
     const [show, setShow] = useState(false);
     const { user } = useAuthContext();
+
     useEffect(() => {
         imageRef?.current?.addEventListener("load", () => {
             setShow(true);
@@ -21,7 +22,7 @@ const ImageComponent = ({ image_thumbnail, image, id }) => {
                 };
 
                 const newImage = await axios.get(
-                    `/api/posts/image/${id}`,
+                    `/api/posts/image/${_id}`,
                     config
                 );
                 setBigImage(newImage.data);
@@ -29,7 +30,7 @@ const ImageComponent = ({ image_thumbnail, image, id }) => {
         } else {
             setBigImage(image);
         }
-    }, [id]);
+    }, [_id]);
 
     const imageRef = useRef();
     const divRef = useRef();

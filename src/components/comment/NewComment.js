@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setComment } from "../../actions";
 import { BiSend } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
-const NewComment = ({ item, placeholder }) => {
+const NewComment = ({ item, placeholder, setAdds }) => {
     const [content, setContent] = useState("");
 
     const { user } = useAuthContext();
@@ -15,9 +15,14 @@ const NewComment = ({ item, placeholder }) => {
             post_id: item._id,
             content,
         };
-        dispatch(setComment(data, user));
-
-        setContent("");
+        if (!content) {
+            return alert("comment has no content");
+        }
+        if (user) {
+            dispatch(setComment(data, user));
+            setAdds((state) => state + 1);
+            setContent("");
+        }
     };
     return (
         <form

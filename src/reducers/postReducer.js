@@ -55,11 +55,31 @@ export const likeReducer = (state = initialLikes, action) => {
             };
 
         case SET_LIKE:
+            console.log(action.payload);
             return { ...state, data: action.payload };
         case SET_ONE_LIKE:
+            console.log(action.payload);
+
+            // const x = state.data.map((item) => {
+            //     console.log(Object.keys(item)[0]);
+            //     if (Object.keys(item)[0] === Object.keys(action.payload)[0]) {
+            //         return {
+            //             [Object.keys(item)[0]]: Object.values(
+            //                 action.payload
+            //             )[0],
+            //         };
+            //     }
+            //     return item;
+            // });
+
+            // console.log(Object.keys(state.data["0"]))
             const x = state.data.map((item) => {
                 if (Object.keys(item)[0] === Object.keys(action.payload)[0]) {
-                    return action.payload;
+                    return {
+                        [Object.keys(item)[0]]: Object.values(
+                            action.payload
+                        )[0],
+                    };
                 }
                 return item;
             });
@@ -99,7 +119,6 @@ const initialComments = {
     isLoading: false,
 };
 export const commentsReducer = (state = initialComments, action) => {
-    console.log(action.payload);
     switch (action.type) {
         case IS_LOADING_COMMENTS:
             return {

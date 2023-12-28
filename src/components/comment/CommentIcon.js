@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setOneLike } from "../../actions";
+import React from "react";
 import { BiComment } from "react-icons/bi";
-import axios from "axios";
 
-const CommentIcon = ({ item, seeComments, ...rest }) => {
-    
-    
-
+const CommentIcon = ({ length, seeComments, ...rest }) => {
     return (
         <div
             {...rest}
@@ -15,7 +9,7 @@ const CommentIcon = ({ item, seeComments, ...rest }) => {
         >
             <BiComment />
 
-            {item?.comments?.length}
+            {length}
         </div>
     );
 };

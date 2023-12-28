@@ -3,8 +3,8 @@ const Friend = ({ friend }) => {
         <>
             <div className="flex gap-4 w-full items-center mx-2 pl-3 pr-20  ">
                 <img
-                    src={friend.img}
-                    className="bg-yellow-200 rounded-full"
+                    src={friend.image}
+                    className="bg-yellow-200 rounded-full w-16 h-16"
                     style={{ width: 60, height: 60 }}
                 />
 

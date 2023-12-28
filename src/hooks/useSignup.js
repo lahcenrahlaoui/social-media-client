@@ -9,17 +9,14 @@ export const useSignup = () => {
     const [isLoading, setIsloading] = useState(null);
 
     const { dispatch } = useAuthContext();
-    const singup = async (email, password) => {
+    const singup = async (formData) => {
         setIsloading(true);
         setError(null);
 
-        const data = {
-            email,
-            password,
-        };
-
-        const response = await axios.post("/auth/signup", data);
-        console.log(response);
+        
+        const response = await axios.post("/auth/signup", formData);
+   
+        
         if (response.data.error) {
             setIsloading(false);
             setError(response.data.error);

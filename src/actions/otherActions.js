@@ -8,13 +8,19 @@ import {
     SET_ONE_LIKE,
 } from "../constants";
 
-export const setOneLike = (id, user) => async (dispatch) => {
-    
-    const response = await setUserLike(id);
+export const setOneLike = (_id, user) => async (dispatch) => {
+    const response = await setUserLike(_id, user);
 
+    console.log("response.data--------------------");
+    console.log("response.data--------------------");
+    console.log("response.data--------------------");
+    console.log("response.data--------------------");
+    console.log("response.data--------------------");
+    
     const changeThis = {
-        [response.data.id]: response.data.likes,
+        [response.data._id]: response.data.likes,
     };
+    console.log(changeThis);
 
     dispatch({
         type: SET_ONE_LIKE,
@@ -23,9 +29,7 @@ export const setOneLike = (id, user) => async (dispatch) => {
 };
 
 export const setComment = (data, user) => async (dispatch) => {
-    const response = await setNewComment(data);
-
-    console.log(response);
+    const response = await setNewComment(data, user);
 
     const comments = {
         data: response.data,
@@ -43,7 +47,7 @@ export const fetchComments = (data, user) => async (dispatch) => {
         type: IS_LOADING_COMMENTS,
     });
 
-    const response = await fetchCommentsByPost(data , user);
+    const response = await fetchCommentsByPost(data, user);
 
     const comments = {
         data: response.data,

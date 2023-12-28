@@ -9,27 +9,24 @@ import NavSide from "../components/NavSide.js";
 import FriendSide from "../components/FriendSide.js";
 import SearchComponent from "../components/SearchComponent.js";
 import { useAuthContext } from "../hooks/useAuthContext.js";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
     const state = useSelector((state) => state.posts);
 
-    const {user} = useAuthContext();
+    const { user } = useAuthContext();
+    let navigate = useNavigate();
 
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log("888888888888888")
-        console.log("888888888888888")
-        console.log("888888888888888")
-        console.log("888888888888888")
         if (user) {
-          
             dispatch(getPosts(user));
         }
-    }, [dispatch , user]);
+    }, [dispatch, user]);
 
     const renderItems = state?.data?.map((item) => {
         return (
-            <div className={item.classes || ""} key={item.id}>
+            <div className={item.classes || ""} key={item._id}>
                 <Post user={user} item={item} isLoading={state.isLoading} />
             </div>
         );
@@ -69,9 +66,7 @@ function Home() {
                             </div>
                         </div>
                         <div className="col-span-4">
-                            <div>
-                                <FriendSide />
-                            </div>
+                            <FriendSide />
                         </div>
                     </div>
                 </div>
