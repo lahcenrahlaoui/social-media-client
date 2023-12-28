@@ -13,10 +13,11 @@ export const useSignup = () => {
         setIsloading(true);
         setError(null);
 
-        
-        const response = await axios.post("/auth/signup", formData);
-   
-        
+        const baseUrl =
+            "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
+
+        const response = await axios.post(`${baseUrl}/auth/signup`, formData);
+
         if (response.data.error) {
             setIsloading(false);
             setError(response.data.error);

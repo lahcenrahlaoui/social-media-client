@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "";
+const baseUrl =
+    "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
 
 export const getPostById = async (id, user) => {
     const config = {
@@ -12,7 +13,7 @@ export const getPostById = async (id, user) => {
     if (id === null) {
         return {};
     }
-    const response = await axios.get(`/api/posts/${id}`, config);
+    const response = await axios.get(`${baseUrl}/api/posts/${id}`, config);
 
     return response;
 };
@@ -23,7 +24,7 @@ export const getPostsAll = async (user) => {
         },
     };
 
-    const response = await axios.get(`/api/posts`, config);
+    const response = await axios.get(`${baseUrl}/api/posts`, config);
 
     return response;
 };
@@ -35,7 +36,7 @@ export const setNewPost = async (data, user) => {
         },
     };
 
-    const response = await axios.post(`/api/posts`, data, config);
+    const response = await axios.post(`${baseUrl}/api/posts`, data, config);
 
     return response;
 };
@@ -48,7 +49,7 @@ export const setOneLike = async (_id, user) => {
         },
     };
 
-    const response = await axios.patch(`/api/posts/${_id}/likes`, {}, config);
+    const response = await axios.patch(`${baseUrl}/api/posts/${_id}/likes`, {}, config);
 
     return response;
 };
@@ -73,7 +74,7 @@ export const setNewComment = async (data, user) => {
     // );
 
     const response = await axios.post(
-        `/api/comments/newComment/${post_id}`,
+        `${baseUrl}/api/comments/newComment/${post_id}`,
 
         {
             content,
@@ -93,7 +94,7 @@ export const fetchCommentsByPost = async (data, user) => {
         params: { postId: postId, skip: skip },
     };
 
-    const response = await axios.get(`/api/comments/post/`, config);
+    const response = await axios.get(`${baseUrl}/api/comments/post/`, config);
 
     return response;
 };
@@ -105,7 +106,7 @@ export const setFollowingUser = async (data, user) => {
         params: { following: data.email },
     };
 
-    const response = await axios.patch(`/api/user/set/following`, {}, config);
+    const response = await axios.patch(`${baseUrl}/api/user/set/following`, {}, config);
 
     return response;
 };
@@ -117,7 +118,7 @@ export const getFollowingList = async (data, user) => {
         },
     };
 
-    const response = await axios.get(`/api/user/get/following`, config);
+    const response = await axios.get(`${baseUrl}/api/user/get/following`, config);
 
     return response;
 };
@@ -129,7 +130,7 @@ export const getSuggestionList = async (data, user) => {
         },
     };
 
-    const response = await axios.get(`/api/suggestions/suggestions`, config);
+    const response = await axios.get(`${baseUrl}/api/suggestions/suggestions`, config);
 
     return response;
 };

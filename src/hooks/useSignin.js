@@ -17,8 +17,10 @@ export const useSignin = () => {
             email,
             password,
         };
-
-        const response = await axios.post("/auth/signin", data);
+        const baseUrl =
+        "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
+    
+        const response = await axios.post(`${baseUrl}/auth/signin`, data);
         if (response.data.error) {
             setIsloading(false);
             setError(response.data.error);
