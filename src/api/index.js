@@ -3,10 +3,15 @@ import axios from "axios";
 const baseUrl =
     "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
 
+const credentials = {
+    withCredentials: true,
+};
+
 export const getPostById = async (id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
@@ -21,6 +26,7 @@ export const getPostsAll = async (user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
@@ -33,6 +39,7 @@ export const setNewPost = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
@@ -46,10 +53,15 @@ export const setOneLike = async (_id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
-    const response = await axios.patch(`${baseUrl}/api/posts/${_id}/likes`, {}, config);
+    const response = await axios.patch(
+        `${baseUrl}/api/posts/${_id}/likes`,
+        {},
+        config
+    );
 
     return response;
 };
@@ -58,6 +70,8 @@ export const setNewComment = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+
+            credentials
         },
     };
 
@@ -90,6 +104,7 @@ export const fetchCommentsByPost = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
         params: { postId: postId, skip: skip },
     };
@@ -102,11 +117,16 @@ export const setFollowingUser = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
         params: { following: data.email },
     };
 
-    const response = await axios.patch(`${baseUrl}/api/user/set/following`, {}, config);
+    const response = await axios.patch(
+        `${baseUrl}/api/user/set/following`,
+        {},
+        config
+    );
 
     return response;
 };
@@ -115,10 +135,14 @@ export const getFollowingList = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
-    const response = await axios.get(`${baseUrl}/api/user/get/following`, config);
+    const response = await axios.get(
+        `${baseUrl}/api/user/get/following`,
+        config
+    );
 
     return response;
 };
@@ -127,10 +151,14 @@ export const getSuggestionList = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
+            credentials
         },
     };
 
-    const response = await axios.get(`${baseUrl}/api/suggestions/suggestions`, config);
+    const response = await axios.get(
+        `${baseUrl}/api/suggestions/suggestions`,
+        config
+    );
 
     return response;
 };
