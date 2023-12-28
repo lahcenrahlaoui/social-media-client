@@ -49,7 +49,7 @@ export const setOneLike = async (_id, user) => {
     };
 
     const response = await axios.patch(`/api/posts/${_id}/likes`, {}, config);
- 
+
     return response;
 };
 // change comments
@@ -107,7 +107,6 @@ export const setFollowingUser = async (data, user) => {
 
     const response = await axios.patch(`/api/user/set/following`, {}, config);
 
- 
     return response;
 };
 
@@ -119,7 +118,6 @@ export const getFollowingList = async (data, user) => {
     };
 
     const response = await axios.get(`/api/user/get/following`, config);
- 
 
     return response;
 };
@@ -132,7 +130,6 @@ export const getSuggestionList = async (data, user) => {
     };
 
     const response = await axios.get(`/api/suggestions/suggestions`, config);
- 
- 
+
     return response;
 };
