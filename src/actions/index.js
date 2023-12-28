@@ -1,6 +1,10 @@
-export {setOneLike} from './otherActions';
-export {setComment} from './otherActions';
-export {getPost} from './postAction';
-export {getPosts} from './postAction';
-export {setPost} from './postAction';
-export {fetchComments} from './otherActions';
+export { setOneLikeAction } from "./otherActions";
+export { setCommentAction } from "./otherActions";
+export { getPostAction } from "./postAction";
+export { getPostsAction } from "./postAction";
+
+export { setPostAction } from "./postAction";
+export { fetchCommentsAction } from "./otherActions";
+export { followingUserAction } from "./otherActions";
+export { getFollowingUserAction } from "./otherActions";
+export { getSuggestionAction } from "./otherActions";

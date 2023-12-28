@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setComment } from "../../actions";
+import { setCommentAction } from "../../actions";
 import { BiSend } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
 const NewComment = ({ item, placeholder, setAdds }) => {
@@ -19,7 +19,7 @@ const NewComment = ({ item, placeholder, setAdds }) => {
             return alert("comment has no content");
         }
         if (user) {
-            dispatch(setComment(data, user));
+            dispatch(setCommentAction(data, user));
             setAdds((state) => state + 1);
             setContent("");
         }

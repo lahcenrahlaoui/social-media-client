@@ -41,7 +41,7 @@ export const setNewPost = async (data, user) => {
 };
 
 // change likes
-export const setUserLike = async (_id, user) => {
+export const setOneLike = async (_id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
@@ -49,13 +49,7 @@ export const setUserLike = async (_id, user) => {
     };
 
     const response = await axios.patch(`/api/posts/${_id}/likes`, {}, config);
-
-    console.log("iueriuyweqiuryiwueqyriqewyriwuequr");
-    console.log("iueriuyweqiuryiwueqyriqewyriwuequr");
-    console.log("iueriuyweqiuryiwueqyriqewyriwuequr");
-    console.log("iueriuyweqiuryiwueqyriqewyriwuequr");
-
-    console.log(response);
+ 
     return response;
 };
 // change comments
@@ -101,5 +95,44 @@ export const fetchCommentsByPost = async (data, user) => {
 
     const response = await axios.get(`/api/comments/post/`, config);
 
+    return response;
+};
+export const setFollowingUser = async (data, user) => {
+    const config = {
+        headers: {
+            authorization: `Bearer ${user.token}`,
+        },
+        params: { following: data.email },
+    };
+
+    const response = await axios.patch(`/api/user/set/following`, {}, config);
+
+ 
+    return response;
+};
+
+export const getFollowingList = async (data, user) => {
+    const config = {
+        headers: {
+            authorization: `Bearer ${user.token}`,
+        },
+    };
+
+    const response = await axios.get(`/api/user/get/following`, config);
+ 
+
+    return response;
+};
+
+export const getSuggestionList = async (data, user) => {
+    const config = {
+        headers: {
+            authorization: `Bearer ${user.token}`,
+        },
+    };
+
+    const response = await axios.get(`/api/suggestions/suggestions`, config);
+ 
+ 
     return response;
 };

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import { Divider, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchComments } from "../../actions";
+import { fetchCommentsAction } from "../../actions";
 import { BiHeart } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { differenceInMinutes } from "date-fns";
@@ -20,7 +20,7 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
             skipValue: skipValue,
         };
         if (user) {
-            dispatch(fetchComments(data, user));
+            dispatch(fetchCommentsAction(data, user));
             setSkipValue((state) => state + 3);
         }
     };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setOneLike } from "../actions";
-import { BiLike } from "react-icons/bi";
+import { setOneLikeAction } from "../actions";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Like = ({ item }) => {
@@ -9,7 +9,7 @@ const Like = ({ item }) => {
     const dispatch = useDispatch();
     const handleLike = () => {
         if (user) {
-            dispatch(setOneLike(item._id, user));
+            dispatch(setOneLikeAction(item._id, user));
         }
     };
 
@@ -23,15 +23,21 @@ const Like = ({ item }) => {
 
     const regularLike = likes[0];
 
+    const allLikes = Object.values(regularLike)[0];
+
     return (
         <div
             onClick={handleLike}
             className="flex items-center justify-center w-1/3 gap-2 py-2 cursor-pointer border-x hover:bg-blue-200"
         >
-            <BiLike />
+            {allLikes.includes(user.email) ? (
+                <BiSolidLike className="text-blue-400" />
+            ) : (
+                <BiLike className="test-red-200" />
+            )}
             {(regularLike !== null &&
                 regularLike !== undefined &&
-                Object.values(regularLike)[0].length) ||
+                allLikes.length) ||
                 0}
         </div>
     );

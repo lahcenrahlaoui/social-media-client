@@ -5,40 +5,37 @@ import Like from "./LikeIcon";
 import { Markup } from "interweave";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Avatar } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import {
+    differenceInDays,
+    differenceInHours,
+    differenceInMinutes,
+    format,
+    parseISO,
+} from "date-fns";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import ImageComponent from "./ImageComponent";
 import CommentIcon from "./comment/CommentIcon";
 import Comments from "./comment/Comments";
 import NewComment from "./comment/NewComment";
-import {
-    format,
-    compareAsc,
-    parseISO,
-    differenceInMinutes,
-    differenceInHours,
-    differenceInDays,
-    differenceInSeconds,
-} from "date-fns";
 
-const Post = ({ user, item, isLoading }) => {
+import { useMenuAnimation } from "../hooks/useMenuAnimation";
+const Post = ({ item }) => {
+    // for menu dropdown animation
+    const [isOpen, setIsOpen] = useState(false);
+    const scope = useMenuAnimation(isOpen);
+
     // for text in post
     const [showMore, setShowMore] = useState(false);
-    // add comment
+
+    // add comment number
     const [adds, setAdds] = useState(0);
 
     // to handle how much comments we should get
     const [skipValue, setSkipValue] = useState(0);
 
-    // to hide comments
+    // to hide comments ( collapse )
     const [seeComments, setSeeComments] = useState(false);
-
-    // for dropdown active or not
-    const [open, setOpen] = useState(false);
-
-    const handleToggle = () => {
-        setOpen((state) => !state);
-    };
 
     const formateDate = (date) => {
         let time = differenceInMinutes(new Date(), new Date(date)) + " m";
@@ -55,32 +52,18 @@ const Post = ({ user, item, isLoading }) => {
         return time;
     };
 
-    // for dropdown
-    const menuRef = useRef();
-    useEffect(() => {
-        let handler = (e) => {
-            if (!menuRef.current.contains(e.target)) {
-                setOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handler);
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        };
-    }, [open]);
-
     // handle content
     let showItem;
     if (showMore) {
         showItem = item.content.replace(
             /(^|\s)(#[a-z\d-]+)/gi,
-            "$1<span class='bg-red-200'>$2</span>"
+            "$1<span className='bg-red-200'>$2</span>"
         );
     } else {
         showItem = item.content
             .replace(
                 /(^|\s)(#[a-z\d-]+)/gi,
-                "$1<span class='bg-red-200'>$2</span>"
+                "$1<span className='bg-red-200'>$2</span>"
             )
             .substring(0, 50);
     }
@@ -88,61 +71,119 @@ const Post = ({ user, item, isLoading }) => {
     // handle tags
     const tags = showItem.match(/#\w+/g) || [];
 
-    // drop down
+    // for dropdown
+
+    useEffect(() => {
+        let handler = (e) => {
+            if (!scope.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        };
+    }, [isOpen]);
+
+    // drop down menu
     const data = (
-        <div className={`relative  w-60 h-20 ${open && "  "} `}>
-            <div
-                ref={menuRef}
+        <nav ref={scope} className={`relative w-60 h-20 `}>
+            <motion.button
                 className="right-0 absolute  cursor-pointer "
-                onClick={() => handleToggle()}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setIsOpen(!isOpen)}
             >
-                <MoreHorizIcon />
-            </div>
+                <div className="arrow">
+                    <MoreHorizIcon />
+                </div>
+            </motion.button>
 
-            <div
-                className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer                  
-                
-                                overflow-hidden  transition-all duration-300 ease-in-out
+            {/* className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer */}
 
-                                ${
-                                    open
-                                        ? "grid-rows-[1fr] opacity-100"
-                                        : "grid-rows-[0fr] opacity-0"
-                                }
-                        `}
+            <ul
+                className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer
+
+                                    overflow-hidden  transition-all duration-300 ease-in-out
+
+                               
+                                    `}
             >
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                </li>
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                </li>
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                </li>
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                </li>
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-                <div className="block px-4 py-2 hover:bg-gray-200 ">
+                </li>
+                <li className="block px-4 py-2 hover:bg-gray-200 ">
                     Hide idem
-                </div>
-            </div>
-        </div>
+                </li>
+            </ul>
+        </nav>
+
+        // <div className={`relative  w-60 h-20 ${open && "  "} `}>
+        //     <div
+        //         ref={menuRef}
+        //         className="right-0 absolute  cursor-pointer "
+        //         onClick={() => handleToggle()}
+        //     >
+        //         <MoreHorizIcon />
+        //     </div>
+
+        //     <div
+        // className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer
+
+        //                 overflow-hidden  transition-all duration-300 ease-in-out
+
+        //                 ${
+        //                     open
+        //                         ? "grid-rows-[1fr] opacity-100"
+        //                         : "grid-rows-[0fr] opacity-0"
+        //                 }
+        //         `}
+        //     >
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
+        //             Hide idem
+        //         </div>
+        //     </div>
+        // </div>
     );
 
     return (
-        <div className="flex flex-col justify-between bg-white border border-blue-200 rounded-lg bg-white ">
+        <div className="flex flex-col justify-between bg-white border border-blue-200 rounded-lg   ">
             <div className="flex flex-col w-full gap-1 p-3">
                 <div className="flex justify-between px-2">
                     <div className="flex gap-2">
                         <img
                             alt="Remy Sharp"
                             src={item.image_user}
-                            className="w-10 h-10 rounded-full"
+                            className="w-10 h-10 rounded-full  object-cover "
                         />
+
+ 
 
                         <div className="text-sm font-semibold">
                             <div> {item.name}</div>
@@ -151,7 +192,6 @@ const Post = ({ user, item, isLoading }) => {
                     </div>
                     <div className="relative ">{data}</div>
                 </div>
-
                 <div className=" text-lg text-gray-900 whitespace-normal ">
                     <Markup content={showItem} />
                     {item.content.length > 50 && (

@@ -11,6 +11,11 @@ import {
     IS_NOT_LOADING_COMMENTS,
     IS_LOADING_COMMENTS_CREATION,
     SET_COMMENTS_ALL,
+    LOADING_FOLLOWING_LIST,
+    SET_FOLLOWING_LIST,
+    LOADING_SUGGESTION_LIST,
+    SET_SUGGESTION_LIST,
+    UPDATE_SUGGESTION_LIST,
 } from "../constants";
 
 const postReducerState = {
@@ -36,60 +41,12 @@ export const postReducer = (state = postReducerState, action) => {
     }
 };
 
+/////////////////////////////////////////////////////////////////////////////////
+
 const postsReducerState = {
     data: [],
     isLoading: true,
 };
-
-const initialLikes = {
-    data: [],
-    isLoading: false,
-};
-
-export const likeReducer = (state = initialLikes, action) => {
-    switch (action.type) {
-        case SET_NEW_LIKE:
-            return {
-                ...state,
-                data: [...state.data, action.payload],
-            };
-
-        case SET_LIKE:
-            console.log(action.payload);
-            return { ...state, data: action.payload };
-        case SET_ONE_LIKE:
-            console.log(action.payload);
-
-            // const x = state.data.map((item) => {
-            //     console.log(Object.keys(item)[0]);
-            //     if (Object.keys(item)[0] === Object.keys(action.payload)[0]) {
-            //         return {
-            //             [Object.keys(item)[0]]: Object.values(
-            //                 action.payload
-            //             )[0],
-            //         };
-            //     }
-            //     return item;
-            // });
-
-            // console.log(Object.keys(state.data["0"]))
-            const x = state.data.map((item) => {
-                if (Object.keys(item)[0] === Object.keys(action.payload)[0]) {
-                    return {
-                        [Object.keys(item)[0]]: Object.values(
-                            action.payload
-                        )[0],
-                    };
-                }
-                return item;
-            });
-
-            return { ...state, data: x };
-        default:
-            return state;
-    }
-};
-
 export const postsReducer = (state = postsReducerState, action) => {
     switch (action.type) {
         case IS_LOADING:
@@ -113,6 +70,42 @@ export const postsReducer = (state = postsReducerState, action) => {
             return state;
     }
 };
+
+/////////////////////////////////////////////////////////////////////////////////
+const initialLikes = {
+    data: [],
+    isLoading: false,
+};
+
+export const likeReducer = (state = initialLikes, action) => {
+    switch (action.type) {
+        case SET_NEW_LIKE:
+            return {
+                ...state,
+                data: [...state.data, action.payload],
+            };
+
+        case SET_LIKE:
+            return { ...state, data: action.payload };
+        case SET_ONE_LIKE:
+            const x = state.data.map((item) => {
+                if (Object.keys(item)[0] === Object.keys(action.payload)[0]) {
+                    return {
+                        [Object.keys(item)[0]]: Object.values(
+                            action.payload
+                        )[0],
+                    };
+                }
+                return item;
+            });
+
+            return { ...state, data: x };
+        default:
+            return state;
+    }
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 
 const initialComments = {
     data: {},
@@ -228,3 +221,66 @@ export const commentsReducer = (state = initialComments, action) => {
 //             return state;
 //     }
 // };
+
+////////////////////////////////////////////////////////////////////////////////////
+
+const intialFollowingList = {
+    data: [],
+    isLoading: false,
+};
+export const followingListReducer = (state = intialFollowingList, action) => {
+    switch (action.type) {
+        case LOADING_FOLLOWING_LIST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case SET_FOLLOWING_LIST:
+           
+            return {
+                ...state,
+                data: action.payload,
+                isLoading: false,
+            };
+
+        default:
+            return state;
+    }
+};
+
+const initialSeggestionList = {
+    data: [],
+    isLoading: false,
+};
+
+export const suggestionListReducer = (
+    state = initialSeggestionList,
+    action
+) => {
+    switch (action.type) {
+        case LOADING_SUGGESTION_LIST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case SET_SUGGESTION_LIST:
+            return {
+                ...state,
+                data: action.payload,
+                isLoading: false,
+            };
+        case UPDATE_SUGGESTION_LIST:
+            const x = state.data.filter((item) => {
+                return item.email !== action.payload;
+            });
+
+            return {
+                ...state,
+                data: x,
+                isLoading: false,
+            };
+
+        default:
+            return state;
+    }
+};

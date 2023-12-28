@@ -1,26 +1,24 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Post from "../components/Post.js";
-import { useEffect } from "react";
-import { getPost, getPosts } from "../actions";
+import { getPostsAction } from "../actions";
 import NavBar from "../components/NavBar.js";
+import Post from "../components/Post.js";
 
 import FormPost from "../components/FormPost.js";
-import NavSide from "../components/NavSide.js";
 import FriendSide from "../components/FriendSide.js";
+import NavSide from "../components/NavSide.js";
 import SearchComponent from "../components/SearchComponent.js";
 import { useAuthContext } from "../hooks/useAuthContext.js";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
     const state = useSelector((state) => state.posts);
 
     const { user } = useAuthContext();
-    let navigate = useNavigate();
 
     const dispatch = useDispatch();
     useEffect(() => {
         if (user) {
-            dispatch(getPosts(user));
+            dispatch(getPostsAction(user));
         }
     }, [dispatch, user]);
 
@@ -39,7 +37,11 @@ function Home() {
             {state.isLoading ? (
                 ""
             ) : (
-                <div className="flex items-center justify-center gap-4 mt-14 pt-2  bg-[#F4F2F2] w-full">
+                <div
+                    className={`flex items-center justify-center gap-4 mt-24  pt-2  bg-[#ffffff]  w-full
+                    transition-all transition ease-in duration-500  
+                    `}
+                >
                     <div className="grid grid-cols-12 gap-4 w-11/12">
                         <div className="flex flex-col gap-2 col-span-3 px-3  ">
                             <NavSide />

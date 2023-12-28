@@ -14,7 +14,7 @@ import {
     SET_NEW_LIKE,
 } from "../constants";
 
-export const getPost = (id, user) => async (dispatch) => {
+export const getPostAction = (id, user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
@@ -26,7 +26,7 @@ export const getPost = (id, user) => async (dispatch) => {
     });
 };
 
-export const getPosts = (user) => async (dispatch) => {
+export const getPostsAction = (user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
@@ -54,7 +54,7 @@ export const getPosts = (user) => async (dispatch) => {
     });
 };
 
-export const setPost = (data, user) => async (dispatch) => {
+export const setPostAction = (data, user) => async (dispatch) => {
     const response = await setNewPost(data, user);
 
     response.data.image = URL.createObjectURL(data.get("image"));

@@ -2,47 +2,35 @@ import { useEffect, useState } from "react";
 import Friend from "./Friend";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { followingUserAction, getSuggestionAction } from "../actions";
+
 const FrinedSide = () => {
-    const suggestFriends = [
-        {
-            name: "jhon",
-            img: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
-            message: "hey look at my profile ",
-        },
-        {
-            name: "dima",
-            img: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png",
-            message: " see new pics  ",
-        },
-        {
-            name: "edward",
-            img: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png",
-            message: " you are around to see what i have  ",
-        },
-    ];
-
-    const [firneds, setFriends] = useState([]);
-
     const { user } = useAuthContext();
+
+    const state = useSelector((state) => state.suggestionList);
+    const dispatch = useDispatch();
     useEffect(() => {
-        (async () => {
-            const response = await axios.get("/api/suggestions");
+        if (user) {
+            const data = {};
 
-            const data = response.data.filter((item) => {
-                return user.email !== item.email;
-            });
-            // console.log(response.data)
-            setFriends(data);
-        })();
-    }, []);
+       
+            dispatch(getSuggestionAction(data, user));
+        }
+    }, [dispatch, user]);
+    let renderList;
 
-    const renderList = firneds.map((friend) => {
-        return <Friend key={friend.name} friend={friend} />;
-    });
+    console.log("state.data000000000000")
+    console.log(state.data)
+    if (state.data.length > 0) {
+        renderList = state.data.map((friend) => {
+            return <Friend key={friend._id} friend={friend} />;
+        });
+    }
 
     return (
         <div className="relative h-full   w-full   ">
-            <div className="fixed flex flex-col items-center h-full gap-3 w-fit  ">
+            <div className="fixed flex flex-col items-center h-full gap-3 w-fit ">
                 <div className="font-2xl font-bold capitalize">suggestion</div>
 
                 <div className="grid grid-cols-1 gap-3 w-full ">
