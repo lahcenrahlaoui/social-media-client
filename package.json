@@ -1,5 +1,5 @@
 {
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app",
   "name": "client",
   "version": "0.1.0",
   "private": true,
