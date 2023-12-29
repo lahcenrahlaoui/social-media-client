@@ -11,8 +11,8 @@ export const getPostById = async (id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     if (id === null) {
@@ -26,8 +26,8 @@ export const getPostsAll = async (user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     const response = await axios.get(`${baseUrl}/api/posts`, config);
@@ -39,8 +39,8 @@ export const setNewPost = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     const response = await axios.post(`${baseUrl}/api/posts`, data, config);
@@ -53,8 +53,8 @@ export const setOneLike = async (_id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     const response = await axios.patch(
@@ -71,8 +71,8 @@ export const setNewComment = async (data, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
 
-            credentials
         },
+        credentials
     };
 
     const { post_id, content } = data;
@@ -104,8 +104,8 @@ export const fetchCommentsByPost = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials,
         params: { postId: postId, skip: skip },
     };
 
@@ -117,8 +117,8 @@ export const setFollowingUser = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials,
         params: { following: data.email },
     };
 
@@ -135,8 +135,8 @@ export const getFollowingList = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     const response = await axios.get(
@@ -151,8 +151,8 @@ export const getSuggestionList = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-            credentials
         },
+        credentials
     };
 
     const response = await axios.get(
