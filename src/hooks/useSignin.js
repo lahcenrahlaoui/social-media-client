@@ -21,9 +21,9 @@ export const useSignin = () => {
         const credentials = {
             withCredentials: true,
         };
-
+        
         const baseUrl =
-        "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
+        "https://social-media-server-sand.vercel.app";
     
         const response = await axios.post(`${baseUrl}/auth/signin`, data , credentials);
         if (response.data.error) {

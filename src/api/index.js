@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const baseUrl =
-    "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
+const baseUrl = "https://social-media-server-sand.vercel.app";
 
 const credentials = {
     withCredentials: true,
@@ -12,7 +11,7 @@ export const getPostById = async (id, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     if (id === null) {
@@ -27,7 +26,7 @@ export const getPostsAll = async (user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     const response = await axios.get(`${baseUrl}/api/posts`, config);
@@ -40,7 +39,7 @@ export const setNewPost = async (data, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     const response = await axios.post(`${baseUrl}/api/posts`, data, config);
@@ -54,7 +53,7 @@ export const setOneLike = async (_id, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     const response = await axios.patch(
@@ -70,9 +69,8 @@ export const setNewComment = async (data, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
-
         },
-        credentials
+        credentials,
     };
 
     const { post_id, content } = data;
@@ -136,7 +134,7 @@ export const getFollowingList = async (data, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     const response = await axios.get(
@@ -152,7 +150,7 @@ export const getSuggestionList = async (data, user) => {
         headers: {
             authorization: `Bearer ${user.token}`,
         },
-        credentials
+        credentials,
     };
 
     const response = await axios.get(

@@ -18,7 +18,7 @@ export const useSignup = () => {
         };
 
         const baseUrl =
-            "https://social-media-server-pesgb5ff2-lahcenrahlaouis-projects.vercel.app";
+            "https://social-media-server-sand.vercel.app";
 
         const response = await axios.post(`${baseUrl}/auth/signup`, formData , credentials);
 
