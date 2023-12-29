@@ -29,7 +29,7 @@ function Home() {
             </div>
         );
     });
-
+console.log("Loading000000000000000000")
     return (
         <div className="w-full pb-20">
             <NavBar user={user} />

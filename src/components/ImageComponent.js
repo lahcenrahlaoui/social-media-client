@@ -20,9 +20,11 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 };
+                const baseUrl = "https://social-media-server-sand.vercel.app";
 
+          
                 const newImage = await axios.get(
-                    `/api/posts/image/${_id}`,
+                    `${baseUrl}/api/posts/image/${_id}`,
                     config
                 );
                 setBigImage(newImage.data);
@@ -34,7 +36,10 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
 
     const imageRef = useRef();
     const divRef = useRef();
-
+    console.log("baseUrl55555555555555555555555")
+    console.log("baseUrl55555555555555555555555")
+    console.log("baseUrl55555555555555555555555")
+    console.log(image)
     return (
         <div
             ref={divRef}

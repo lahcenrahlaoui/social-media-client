@@ -171,7 +171,7 @@ const Post = ({ item }) => {
         //     </div>
         // </div>
     );
-
+console.log("================================")
     return (
         <div className="flex flex-col justify-between bg-white border border-blue-200 rounded-lg   ">
             <div className="flex flex-col w-full gap-1 p-3">
