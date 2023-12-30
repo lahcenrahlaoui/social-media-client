@@ -9,6 +9,7 @@ import FriendSide from "../components/FriendSide.js";
 import NavSide from "../components/NavSide.js";
 import SearchComponent from "../components/SearchComponent.js";
 import { useAuthContext } from "../hooks/useAuthContext.js";
+import Stories from "../components/Stories.js";
 
 function Home() {
     const state = useSelector((state) => state.posts);
@@ -43,11 +44,11 @@ function Home() {
     }, [focused]);
 
     return (
-        <div className=" relative w-full pb-20 ">
+        <div className=" relative w-full pb-20 bg-[#F4F4F4]  ">
             <div
                 className={`${
                     focused
-                        ? "absolute  w-full h-screen bg-[#00000060] z-[30] "
+                        ? "absolute  w-full h-full bg-[#00000060] z-[30] "
                         : ""
                 }`}
             ></div>
@@ -57,7 +58,7 @@ function Home() {
             ) : (
                 <>
                     <div
-                        className={`flex flex-col lg:flex-row items-center justify-center gap-4 mt-24  pt-2  bg-[#ffffff]  w-full
+                        className={`flex flex-col lg:flex-row items-center justify-center gap-4 mt-24  pt-2  bg-[#F4F4F4]  w-full
                     transition-all  ease-in duration-500  
                     `}
                     >
@@ -80,7 +81,7 @@ function Home() {
                             >
                                 <FriendSide />
                             </div>
-                            <div className="col-span-12 lg:col-span-5 z-[40] ">
+                            <div className="col-span-12 lg:col-span-6 z-[40] ">
                                 <div className="flex flex-col gap-4 items-center   ">
                                     <FormPost
                                         user={user}
@@ -88,7 +89,7 @@ function Home() {
                                         setFocused={setFocused}
                                     />
 
-                                    <div
+                                    {/* <div
                                         className={`${
                                             !focused
                                                 ? "focused-opacity-none"
@@ -101,7 +102,7 @@ function Home() {
                                         </div>
 
                                         <SearchComponent />
-                                    </div>
+                                    </div> */}
 
                                     <div
                                         className={`${
@@ -117,12 +118,16 @@ function Home() {
                                 </div>
                             </div>
                             <div
-                                className={`${
+                                className={`
+                                
+                                flex flex-col gap-2 
+                                ${
                                     !focused
                                         ? "focused-opacity-none"
                                         : "focused-opacity"
-                                } hidden lg:block  col-span-4  `}
+                                } hidden lg:block  col-span-3  `}
                             >
+                                <Stories />
                                 <FriendSide />
                             </div>
                         </div>

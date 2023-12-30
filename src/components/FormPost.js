@@ -67,17 +67,17 @@ const FormPost = ({ focused, setFocused }) => {
             >
                 <div
                     ref={divRef}
-                    className={` relative flex flex-col bg-[#fdfdfd] border gap-2 cursor-text rounded-lg overflow-hidden
+                    className={` relative flex flex-col bg-[#fdfdfd] border gap-2 cursor-text overflow-hidden
                     ${
                         focused
                             ? image
                                 ? " w-full border border-[#3498db]  min-h-[14rem] "
                                 : " w-full border border-[#3498db]  min-h-[10rem] "
                             : image
-                              ? " w-full min-h-[14rem]"
-                              : "w-full min-h-[8rem]"
+                              ? " w-full min-h-[14rem] rounded-xl"
+                              : "w-full min-h-[8rem] rounded-xl"
                     }  
-                    transition-all ease-in duration-300 delay-200
+                    transition-all ease-in duration-200 delay-100
                  `}
                     onBlur={() => setFocused(false)}
                 >
@@ -94,7 +94,6 @@ const FormPost = ({ focused, setFocused }) => {
                                 }`}
                             >
                                 <Editor
-                                    className="bg-red-500"
                                     editorState={content}
                                     onChange={onChange}
                                     plugins={plugins}

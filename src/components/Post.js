@@ -173,7 +173,7 @@ const Post = ({ item }) => {
     );
     
     return (
-        <div className="flex flex-col justify-between bg-white border border-blue-200 rounded-lg   ">
+        <div className="flex flex-col justify-between bg-white border border-gray-200 rounded-3xl   ">
             <div className="flex flex-col w-full gap-1 p-3">
                 <div className="flex justify-between px-2">
                     <div className="flex gap-2">

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { followingUserAction } from "../actions";
+import { BiPlusCircle } from "react-icons/bi";
 
 /* eslint-disable jsx-a11y/alt-text */
 const Friend = ({ friend }) => {
@@ -18,24 +19,21 @@ const Friend = ({ friend }) => {
 
     return (
         <div className="w-full px-6 py-1 ">
-            <div className="flex gap-4 ">
-                <div className="w-14 h-14 min-w-[3.5rem] min-h-[3.5rem]">
+            <div className="flex gap-4   ">
+                <div className="relative  w-16 h-16 min-w-[3.5rem] min-h-[3.5rem]">
                     <img
                         src={friend.image}
-                        className="bg-yellow-200 rounded-full  object-cover  w-full h-full"
+                        className="absolute rounded-full  object-cover bottom-0 w-14 h-14"
                     />
-                </div>
 
-                <div className="flex flex-col gap-2 text-xs w-full ">
-                    <div className="text-base text-gray-800 capitalize font-semibold hover:underline cursor-pointer ">
-                        {friend.name}
-                    </div>
-                    <button
+                    <div
                         onClick={handleFollow}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className=" absolute cursor-pointer  right-0  text-xl text-red-600
+                                    flex items-center justify-center 
+                                    rounded-full"
                     >
-                        Follow
-                    </button>
+                        <BiPlusCircle />
+                    </div>
                 </div>
             </div>
             <span className="h-4 w-full bg-gray-900 "></span>
