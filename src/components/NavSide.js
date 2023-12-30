@@ -27,7 +27,7 @@ const NavSide = () => {
             return (
                 <div
                     key={friend.name}
-                    className="flex items-center justify-center w-[4rem] h-[4rem] cursor-pointer"
+                    className="flex items-center justify-center w-[4rem] h-[4rem]   cursor-pointer"
                 >
                     <div className=" w-14 h-14 hover:w-[4rem] hover:h-[4rem] transition-all duration-200  marker:">
                         <img
@@ -40,8 +40,6 @@ const NavSide = () => {
         });
     }
 
-  
-    
     // if (followingList.length > 0) {
     //     renderCats = followingList.map((friend) => {
     //         return (
@@ -60,11 +58,13 @@ const NavSide = () => {
     //     });
     // }
     return (
-        <div className="sticky top-16   h-screen  ">
-            <div className="  flex flex-col items-center gap-2 rounded-xl   bg-white py-2 border  ">
-                <div className="font-2xl font-bold">Chat with</div>
+        <div className="sticky top-16    ">
+            <div className="  flex flex-col items-center gap-2 rounded-xl bg-white py-2 border  ">
+                <div className="font-2xl font-bold">Friends</div>
 
-                <div className="grid grid-cols-3 gap-1 ">{renderCats}</div>
+                <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-3 gap-1 ">
+                    {renderCats}
+                </div>
             </div>
         </div>
     );

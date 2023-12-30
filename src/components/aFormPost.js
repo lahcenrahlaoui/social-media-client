@@ -1,233 +1,194 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+/* eslint-disable jsx-a11y/alt-text */
+import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPost } from "../actions";
-import { BiUpload } from "react-icons/bi";
+import { setPostAction } from "../actions";
 
-import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
-import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
+import { BiX } from "react-icons/bi";
 
-import Editor, { createEditorStateWithText } from "@draft-js-plugins/editor";
-import createHashtagPlugin from "@draft-js-plugins/hashtag";
+import { useAuthContext } from "../hooks/useAuthContext";
 
+import ReactQuill, { Quill } from "react-quill";
 
-{
-    /* <img src="https://i.stack.imgur.com/dy62M.png" /> */
-}
+import "quill/dist/quill.bubble.css";
+import "quill/dist/quill.snow.css";
+
 const FormPost = () => {
-    const text = "s";
-    const editor = useRef();
-    const [state, setState] = useState({
-        editorState: createEditorStateWithText(text),
-    });
+    const [image, setImage64] = useState("");
 
-    const onChange = (e) => {
-       
-        setState(e.target.value);
+    const [focused, setFocused] = useState(false);
+
+    const { user } = useAuthContext();
+    const editor = useRef(null);
+
+    const onChange = (newEditorState) => {
+        setContent(newEditorState);
     };
 
-    const hashtagPlugin = createHashtagPlugin();
-    const plugins = [hashtagPlugin];
+    const placeholder = "Compose an epic...";
+
+    const [content, setContent] = useState("");
+
+    const focus = () => {
+        editor?.current?.focus();
+        setFocused(true);
+    };
 
     const dispatch = useDispatch();
 
-    const [content, setContent] = useState();
-    const [image, setImage64] = useState("");
-
-    // const getBase64FromUrl = async (url) => {
-    //     const data = await fetch(url);
-    //     const blob = await data.blob();
-    //     return new Promise((resolve) => {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(blob);
-    //         reader.onloadend = () => {
-    //             const base64data = reader.result;
-    //             resolve(base64data);
-    //         };
-    //     });
-    // };
-
-    // const imgFilehandler = async (e) => {
-    //     if (e.target.files.length !== 0) {
-    //         const urlImage = URL.createObjectURL(e.target.files[0]);
-
-    //         setImage64(await getBase64FromUrl(urlImage));
-    //     }
-    // };
-
-    // const imageRef = useRef();
-
-    // const imgFilehandler = (e) => {
-    //     if (e.target.files.length !== 0) {
-    //         const urlImage = URL.createObjectURL(e.target.files[0]);
-
-    //         setImage64(urlImage);
-    //     }
-    // };
+    const divRef = useRef();
 
     const onSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
+        setFocused(false);
 
-        formData.append("image", image);
-        formData.append("content", content);
-        setContent("");
-        setImage64("");
+        const text = content.replace("<p>", "").replace("</p>", "");
 
-        dispatch(setPost(formData));
+        if (!image || !text) {
+            alert("all fields must be filled ");
+        } else if (user) {
+            formData.append("image", image);
+            formData.append("content", text);
+            dispatch(setPostAction(formData, user));
+
+            setContent("");
+            setImage64("");
+        }
     };
 
-    const area = useRef();
+    const formats = ["image"];
 
-    // const handleTextArea = (e) => {
-    //     const text = e.target.value.split(" ").filter((v) => v.startsWith("#"));
-    //     const fullText = e.target.value;
-    //     let result;
-    //     const changedText = text.map((t) => {
-    //         return <span className="bg-red-200">{t}</span>;
-    //     });
-
-    //     console.log("changedText");
-    //     console.log(changedText);
-    //     const items = [];
-    //     if (changedText.length > 0) {
-    //         var node = document.createElement(changedText[0].type);
-    //         node.classList.add(changedText[0].props.className);
-    //         node.innerHTML = changedText[0].props.children;
-    //         console.log(node);
-    //         items.push(node);
-    //     }
-
-    //     for (let i = 0; i < items.length; i++) {
-    //         result = fullText.replace(text[i], items[i]);
-    //     }
-    //     console.log("result");
-    //     console.log(result);
-    //     setContent(result);
-    // };
-    const handleTextArea = (e) => {};
-
-    // const onChange = useCallback((e) => {
-    //     console.log(
-    //         "CHANGED:",
-    //         e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
-    //         e.detail.tagify.getCleanValue(), // Same as above, without the extra properties
-    //         e.detail.value // a string representing the tags
-    //     );
-    // }, []);
+    const quillRef = useRef();
+    useLayoutEffect(() => {
+        quillRef.current = new Quill("#editor-container", {
+            modules: {
+                toolbar: [["image"]],
+            },
+            formats: formats,
+            placeholder: "Compose an epic...",
+            theme: "snow",
+        });
+    }, []);
 
     return (
-        <form
-            onSubmit={onSubmit}
-            className="flex justify-center pt-5 bg-red-200 w-4/5"
-        >
-            <div
-                className={`flex flex-col justify-center items-center gap-2 ${
-                    image !== "" ? "basis-5/6" : "w-full"
-                } `}
+        <>
+            <form
+                onSubmit={onSubmit}
+                className="flex items-center justify-center w-full  "
+                onClick={focus}
             >
-                <div className=" flex w-3/4">
-                    {/* <Tags
-                    tagifyRef={Object} // optional Ref object for the Tagify instance itself, to get access to  inner-methods
-                    settings={Object}  // tagify settings object
-                    defaultValue={content} 
-                    className="bg-white"
-                    onChange={onChange}
-                    /> */}
+                <div
+                    ref={divRef}
+                    className={`flex flex-col bg-[#fdfdfd] border gap-2 cursor-text rounded-lg
+                    ${
+                        focused
+                            ? " w-full border border-[#3498db]  "
+                            : " w-full"
+                    } transition-all ease-in duration-200 delay-100
+                 `}
+                    onBlur={() => setFocused(false)}
+                >
+                    <div className="flex gap-3 py-2 px-2  ">
+                        <div className="flex flex-col justify-center w-full text-xl  ">
+                            {/* <div className=" relative  w-48  ">
+                                <ReactQuill
+                                    theme="snow"
+                                    value={content}
+                                    placeholder={placeholder}
+                                    onChange={setContent}
+                                    modules={modules}
+                                    formats={formats}
+                                    
+                                />
+                            </div> */}
+                            <div class=" flex flex-col w-full bg-red-200 editor-wrapper">
+                                <img
+                                    className="rounded-full min-w-[3rem] min-h-[3rem] object-cover  w-[3rem] h-[3rem] "
+                                    src={user?.image}
+                                />
+                                <div id="editor-container" className=" "></div>
+                            </div>
 
-                    <div className={editor} >
-                        <Editor
-                            editorState={state.editorState}
-                            onChange={onChange}
-                            plugins={plugins}
-                            ref={editor}
-                        />
-                    </div>
-
-                    {/* <input
-                        ref={area}
-                        id="postContent"
-                        name="postContent"
-                        rows="4"
-                        className="w-full border-2 rounded-md px-4 py-2 leading-5
-                                    transition duration-150 ease-in-out sm:text-sm
-                                    sm:leading-5 resize-none focus:outline-none focus:border-blue-500"
-                        placeholder="What's on your mind?"
-                        onChange={handleTextArea}
-                        value={content}
-                    /> */}
-                </div>
-
-                <div className="  w-3/4">
-                    <div
-                        className="relative  px-4 py-3 bg-white flex items-center justify-between 
-                                hover:border-blue-500 transition duration-150 ease-in-out "
-                    >
-                        <input
-                            type="file"
-                            id="fileAttachment"
-                            name="fileAttachment"
-                            className="absolute inset-0 opacity-0 bg-blue-100 w-16 h-16 cursor-pointer "
-                            onChange={(e) => setImage64(e.target.files[0])}
-                            accept="image/*"
-                        />
-                        <div className="flex border-2 rounded-md p-2 items-center cursor-pointer">
-                            <svg
-                                className="w-6 h-6 text-gray-400"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                ></path>
-                            </svg>
+                            <div className="mt-4">
+                                {image === "" ? (
+                                    image
+                                ) : (
+                                    <div className={`flex relative w-1/5 `}>
+                                        <div
+                                            onClick={() => {
+                                                setImage64("");
+                                            }}
+                                            className="absolute right-0 flex items-center justify-center w-6 h-6 text-4xl text-red-700 cursor-pointer"
+                                        >
+                                            <BiX />
+                                        </div>
+                                        <img
+                                            src={URL.createObjectURL(image)}
+                                            width={150}
+                                            height={20}
+                                            alt={image.name}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <button
-                            type="submit"
-                            className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"
+
+                        {/* <div
+                            className="relative flex items-start justify-between px-1 py-1  gap-3 
+                                        transition duration-150 ease-in-out group "
                         >
-                            Post
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="19"
-                                height="19"
-                                viewBox="0 0 24 24"
-                                id="send"
-                                fill="#fff"
+                            <input
+                                type="file"
+                                id="fileAttachment"
+                                name="fileAttachment"
+                                className="absolute inset-0 w-16 h-16 opacity-0 cursor-pointer "
+                                onChange={(e) => setImage64(e.target.files[0])}
+                                accept="image/*"
+                            />
+
+                            <div
+                                className="flex items-center justify-center text-3xl  w-10 h-10  
+                                            group-hover:border-[#c5ddec] rounded-md cursor-pointer 
+                                            transition duration-150 "
                             >
-                                <path fill="none" d="M0 0h24v24H0V0z"></path>
-                                <path d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
-                            </svg>
-                        </button>
+                                <BiImageAdd />
+                            </div>
+                            <button
+                                type="submit"
+                                className="flex items-center justify-center gap-2  w-10 h-10 rounded-full  text-center  text-lg
+                                text-white transition duration-300 bg-blue-500 hover:bg-blue-600 
+                                focus:outline-none focus:shadow-outline-blue"
+                            >
+                                <BiSend />
+                            </button>
+                        </div> */}
                     </div>
                 </div>
-            </div>
-            {image === "" ? (
-                image
-            ) : (
-                <div className={`flex relative basis-1/6 border  `}>
-                    <div
-                        onClick={() => {
-                            setImage64("");
-                        }}
-                        className="cursor-pointer w-6 h-6 flex items-center justify-center  bg-red-100 absolute right-0"
-                    >
-                        X
-                    </div>
-                    <img
-                        src={URL.createObjectURL(image)}
-                        width={150}
-                        height={20}
-                        alt={image.name}
-                    />
-                </div>
-            )}
-        </form>
+            </form>
+        </>
     );
 };
 
 export default FormPost;
+
+
+
+
+
+
+
+
+
+
+
+   {/* editor */}
+                {/* <div
+                    className={` editor-wrapper flex w-full h-full pt-4 border border-gray-200 `}
+                    onBlur={() => setFocused(false)}
+                >
+                    <img
+                        className="rounded-full min-w-[3rem] min-h-[3rem] object-cover ml-2 w-[3rem] h-[3rem] "
+                        src={user?.image}
+                    />
+                    <div id="editor-container" className="w-full"></div>
+                </div> */}

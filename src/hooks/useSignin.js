@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { LOGIN } from "../constants";
 import { useAuthContext } from "./useAuthContext";
-
+import {BASE_URL} from "../constants"
 export const useSignin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsloading] = useState(null);
@@ -22,10 +22,9 @@ export const useSignin = () => {
             withCredentials: true,
         };
         
-        const baseUrl =
-        "https://social-media-server-sand.vercel.app";
+       
     
-        const response = await axios.post(`${baseUrl}/auth/signin`, data , credentials);
+        const response = await axios.post(`${BASE_URL}/auth/signin`, data , credentials);
         if (response.data.error) {
             setIsloading(false);
             setError(response.data.error);

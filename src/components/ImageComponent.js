@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { BASE_URL } from "../constants";
 
 const ImageComponent = ({ image_thumbnail, image, _id }) => {
     const [bigImage, setBigImage] = useState("");
@@ -20,11 +21,10 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 };
-                const baseUrl = "https://social-media-server-sand.vercel.app";
-
+              
           
                 const newImage = await axios.get(
-                    `${baseUrl}/api/posts/image/${_id}`,
+                    `${BASE_URL}/api/posts/image/${_id}`,
                     config
                 );
                 setBigImage(newImage.data);
@@ -36,10 +36,8 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
 
     const imageRef = useRef();
     const divRef = useRef();
-    console.log("baseUrl55555555555555555555555")
-    console.log("baseUrl55555555555555555555555")
-    console.log("baseUrl55555555555555555555555")
-    console.log(image)
+
+    
     return (
         <div
             ref={divRef}
@@ -61,6 +59,7 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                     }  `}
                 />
             </div>
+            
         </div>
     );
 };

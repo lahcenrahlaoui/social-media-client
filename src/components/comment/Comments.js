@@ -46,12 +46,13 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
                 <React.Fragment key={idx}>
                     <div className="flex justify-between items-center ">
                         <div className="flex gap-3 ">
-                            <div>
+                            <div className="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem]">
                                 <img
-                                    className=" w-10 h-10 rounded-full "
                                     src={comment.image}
+                                    className="bg-yellow-200 rounded-full  object-cover  w-10 h-10"
                                 />
                             </div>
+
                             <div className="flex flex-col justify-center  ">
                                 <div className="text-xs font-semibold">
                                     {comment.name}

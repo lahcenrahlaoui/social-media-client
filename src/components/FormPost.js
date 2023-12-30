@@ -15,11 +15,11 @@ import { BiSend } from "react-icons/bi";
 // eslint-disable-next-line no-undef
 const plugins = [createHashtagPlugin({ theme: hashtagStyles })];
 
-const FormPost = () => {
+const FormPost = ({ focused, setFocused }) => {
     const [content, setContent] = useState(createEditorStateWithText(""));
     const [image, setImage64] = useState("");
 
-    const [focused, setFocused] = useState(false);
+    // const [focused, setFocused] = useState(false);
 
     const { user } = useAuthContext();
     const editor = useRef(null);
@@ -29,8 +29,10 @@ const FormPost = () => {
     };
 
     const focus = () => {
-        editor?.current?.focus();
-        setFocused(true);
+        if (!focused) {
+            editor?.current?.focus();
+            setFocused(true);
+        }
     };
 
     const dispatch = useDispatch();
@@ -58,150 +60,55 @@ const FormPost = () => {
 
     return (
         <>
-            {/* <form
-                onSubmit={onSubmit}
-                className="flex items-center justify-center w-full  "
-                onClick={focus}
-            >
-                <div
-                    ref={divRef}
-                    className={`flex flex-col bg-white border gap-2 cursor-text rounded-lg
-                    ${
-                        focused
-                            ? " w-full border border-[#3498db]  "
-                            : " w-full"
-                    } transition-all transition ease-in  duration-200 delay-100
-                 `}
-                    onBlur={() => setFocused(false)}
-                >
-                    <div className="flex gap-3 mx-4 my-4">
-                        <img
-                            style={{ width: 40, height: 40 }}
-                            className="rounded-full "
-                            src={user?.image}
-                        />
-
-                        <div className="flex flex-col justify-center w-full text-xl ">
-                            <div className="w-full h-full pt-1 pb-2 ">
-                                <Editor
-                                    editorState={content}
-                                    onChange={onChange}
-                                    plugins={plugins}
-                                    ref={editor}
-                                />
-                            </div>
-                            <div className="mt-4">
-                                {image === "" ? (
-                                    image
-                                ) : (
-                                    <div className={`flex relative w-1/5   `}>
-                                        <div
-                                            onClick={() => {
-                                                setImage64("");
-                                            }}
-                                            className="absolute right-0 flex items-center justify-center w-6 h-6 text-4xl text-red-700 cursor-pointer"
-                                        >
-                                            <BiX />
-                                        </div>
-                                        <img
-                                            src={URL.createObjectURL(image)}
-                                            width={150}
-                                            height={20}
-                                            alt={image.name}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr />
-                    <div className="relative flex items-center justify-between px-4 py-3 transition duration-150 ease-in-out group ">
-                        <input
-                            type="file"
-                            id="fileAttachment"
-                            name="fileAttachment"
-                            className="absolute inset-0 w-16 h-16 opacity-0 cursor-pointer "
-                            onChange={(e) => setImage64(e.target.files[0])}
-                            accept="image/*"
-                        />
-
-                        <div
-                            className="flex items-center p-2 border border-2 group-hover:border-[#c5ddec] rounded-md cursor-pointer 
-                          transition duration-150 "
-                        >
-                            <svg
-                                className="w-6 h-6 text-gray-400 "
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                ></path>
-                            </svg>
-                        </div>
-                        <button
-                            type="submit"
-                            className="flex items-center justify-center gap-2 px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-                        >
-                            Post
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="19"
-                                height="19"
-                                viewBox="0 0 24 24"
-                                id="send"
-                                fill="#fff"
-                            >
-                                <path fill="none" d="M0 0h24v24H0V0z"></path>
-                                <path d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </form> */}
-
             <form
                 onSubmit={onSubmit}
-                className="flex items-center justify-center w-full  "
+                className="  flex items-center justify-center w-full  "
                 onClick={focus}
             >
                 <div
                     ref={divRef}
-                    className={`flex flex-col bg-[#fdfdfd] border gap-2 cursor-text rounded-lg
+                    className={` relative flex flex-col bg-[#fdfdfd] border gap-2 cursor-text rounded-lg overflow-hidden
                     ${
                         focused
-                            ? " w-full border border-[#3498db]  "
-                            : " w-full"
-                    } transition-all transition ease-in duration-200 delay-100
+                            ? image
+                                ? " w-full border border-[#3498db]  min-h-[14rem] "
+                                : " w-full border border-[#3498db]  min-h-[10rem] "
+                            : image
+                              ? " w-full min-h-[14rem]"
+                              : "w-full min-h-[8rem]"
+                    }  
+                    transition-all ease-in duration-300 delay-200
                  `}
                     onBlur={() => setFocused(false)}
                 >
-                    <div className="flex gap-3 py-2 px-2  ">
+                    <div className=" flex gap-3 py-2 px-2  ">
                         <img
-                            className="rounded-full  min-w-[3rem] min-h-[3rem] object-cover  w-[3rem] h-[3rem] "
+                            className=" rounded-full  min-w-[3rem] min-h-[3rem] object-cover  w-[3rem] h-[3rem] "
                             src={user?.image}
                         />
 
-                        <div className="flex flex-col justify-center w-full text-xl  ">
-                            <div className="flex items-center  w-full h-full  ">
+                        <div className=" flex flex-col justify-center w-full text-xl ">
+                            <div
+                                className={`flex items-center  w-full h-full ${
+                                    !image && " mb-8 "
+                                }`}
+                            >
                                 <Editor
+                                    className="bg-red-500"
                                     editorState={content}
                                     onChange={onChange}
                                     plugins={plugins}
                                     ref={editor}
+                                    placeholder={"Write something..."}
                                 />
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-4  ">
                                 {image === "" ? (
                                     image
                                 ) : (
-                                    <div className={`flex relative w-1/5 `}>
+                                    <div
+                                        className={`flex relative w-1/5 mb-10`}
+                                    >
                                         <div
                                             onClick={() => {
                                                 setImage64("");
@@ -220,33 +127,47 @@ const FormPost = () => {
                                 )}
                             </div>
                         </div>
-
-                        <div
-                            className="relative flex items-start justify-between px-1 py-1  gap-3 
-                                        transition duration-150 ease-in-out group "
-                        >
-                            <input
-                                type="file"
-                                id="fileAttachment"
-                                name="fileAttachment"
-                                className="absolute inset-0 w-16 h-16 opacity-0 cursor-pointer "
-                                onChange={(e) => setImage64(e.target.files[0])}
-                                accept="image/*"
-                            />
-
+                    </div>
+                    <div className="absolute bottom-0 w-full ">
+                        <div className="bg-gray-200 w-full h-px">&nbsp;</div>
+                        <div className="flex w-full items-center justify-between  px-4 my-1">
                             <div
-                                className="flex items-center justify-center text-3xl  w-10 h-10  
-                                            group-hover:border-[#c5ddec] rounded-md cursor-pointer 
-                                            transition duration-150 "
+                                className=" relative flex items-start justify-between 
+                                        px-1 py-1 gap-3  
+                                        transition duration-150 ease-in-out group "
                             >
-                                <BiImageAdd />
+                                <input
+                                    type="file"
+                                    id="fileAttachment"
+                                    name="fileAttachment"
+                                    className="  absolute inset-0 w-full h-16 !opacity-0 cursor-pointer "
+                                    onChange={(e) =>
+                                        setImage64(e.target.files[0])
+                                    }
+                                    accept="image/*"
+                                />
+
+                                <div
+                                    className=" flex items-center justify-center text-2xl h-10 px-5 bg-gray-200
+                                            group-hover:border-[#c5ddec] rounded-3xl cursor-pointer 
+                                            transition duration-150 "
+                                >
+                                    <BiImageAdd />
+                                    <span className="text-sm  cursor-pointer  ">
+                                        Media
+                                    </span>
+                                </div>
                             </div>
                             <button
                                 type="submit"
-                                className="flex items-center justify-center gap-2  w-10 h-10 rounded-full  text-center  text-lg
+                                className=" flex items-center justify-center gap-2  px-3  h-10 rounded-full  text-center  text-lg
                                 text-white transition duration-300 bg-blue-500 hover:bg-blue-600 
                                 focus:outline-none focus:shadow-outline-blue"
                             >
+                                <span className="text-sm  cursor-pointer  ">
+                                    Publish
+                                </span>
+
                                 <BiSend />
                             </button>
                         </div>

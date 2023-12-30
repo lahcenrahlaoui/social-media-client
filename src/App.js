@@ -5,14 +5,20 @@ import { useAuthContext } from "./hooks/useAuthContext.js";
 import Home from "./pages/Home.js";
 import Signin from "./pages/Signin.js";
 import Signup from "./pages/Signup.js";
+import X from "./pages/Editor.js";
 
 function App() {
     const { user } = useAuthContext();
-
+   
     return (
         <div className=" flex items-center justify-center app">
             <BrowserRouter>
                 <Routes>
+                    <Route
+                        exact
+                        path="/x"
+                        element={user ? <X />: <Navigate to="/x" />}
+                    />
                     <Route
                         exact
                         path="/signin"

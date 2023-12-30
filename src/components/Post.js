@@ -171,19 +171,18 @@ const Post = ({ item }) => {
         //     </div>
         // </div>
     );
-console.log("================================")
+    
     return (
         <div className="flex flex-col justify-between bg-white border border-blue-200 rounded-lg   ">
             <div className="flex flex-col w-full gap-1 p-3">
                 <div className="flex justify-between px-2">
                     <div className="flex gap-2">
-                        <img
-                            alt="Remy Sharp"
-                            src={item.image_user}
-                            className="w-10 h-10 rounded-full  object-cover "
-                        />
-
- 
+                        <div className="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem]">
+                            <img
+                                src={item.image_user}
+                                className="bg-yellow-200 rounded-full  object-cover  w-10 h-10"
+                            />
+                        </div>
 
                         <div className="text-sm font-semibold">
                             <div> {item.name}</div>

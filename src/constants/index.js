@@ -30,8 +30,12 @@ export const LOGOUT = "LOGOUT";
 export const LOADING_FOLLOWING_LIST = "LOADING_FOLLOWING_LIST";
 export const SET_FOLLOWING_LIST = "SET_FOLLOWING_LIST";
 
-
-
 export const LOADING_SUGGESTION_LIST = "LOADING_SUGGESTION_LIST";
 export const SET_SUGGESTION_LIST = "SET_SUGGESTION_LIST";
 export const UPDATE_SUGGESTION_LIST = "UPDATE_SUGGESTION_LIST";
+
+///////
+export const BASE_URL =
+    process.env.NODE_ENV === "production"
+        ? "https://social-media-server-sand.vercel.app"
+        : "";

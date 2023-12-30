@@ -14,14 +14,11 @@ const FrinedSide = () => {
         if (user) {
             const data = {};
 
-       
             dispatch(getSuggestionAction(data, user));
         }
     }, [dispatch, user]);
     let renderList;
 
-    console.log("state.data000000000000")
-    console.log(state.data)
     if (state.data.length > 0) {
         renderList = state.data.map((friend) => {
             return <Friend key={friend._id} friend={friend} />;
@@ -29,11 +26,12 @@ const FrinedSide = () => {
     }
 
     return (
-        <div className="relative h-full   w-full   ">
-            <div className="fixed flex flex-col items-center h-full gap-3 w-fit ">
-                <div className="font-2xl font-bold capitalize">suggestion</div>
+        <div className="  w-full   ">
+            <div className="  flex flex-col items-center gap-2 rounded-xl bg-red-200 py-2 border  ">
+                <div className="font-2xl font-bold">suggestion</div>
 
-                <div className="grid grid-cols-1 gap-3 w-full ">
+                <div className="grid grid-col-1 gap-1 bg-green-200 ">
+                    
                     {renderList}
                 </div>
             </div>
