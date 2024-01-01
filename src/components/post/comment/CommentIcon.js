@@ -16,7 +16,7 @@ const CommentIcon = ({ length, addition, setSeeComments, executeScroll }) => {
         >
             <BiSolidComment />
 
-            <div className="flex items-center before:justify-center absolute bg-white text-[#6BA4E9] rounded-full w-3.5 h-3.5 right-0 bottom-0 text-xs">
+            <div className="flex items-center justify-center absolute bg-white text-[#6BA4E9] rounded-full w-3.5 h-3.5 right-0 bottom-0 text-xs">
                 <div>{length + addition}</div>
             </div>
         </div>

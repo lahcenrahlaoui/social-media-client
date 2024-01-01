@@ -101,6 +101,7 @@ const Post = ({ item }) => {
 
     const { user } = useAuthContext();
 
+    console.log(allLikes)
     useEffect(() => {
         (async () => {
             const config = {
@@ -126,7 +127,7 @@ const Post = ({ item }) => {
             ref={scrollingElementRef}
             className=" flex flex-col justify-between bg-white border border-gray-200 rounded-2xl   "
         >
-            <div className=" relative flex flex-col w-full gap-1 p-2">
+            <div className=" relative flex flex-col w-full gap-1 p-2 pb-4">
                 {!seeComments && (
                     <div className=" relative flex flex-col w-full gap-1 p-2  ">
                         {/* name and drop down  */}
@@ -223,8 +224,8 @@ const Post = ({ item }) => {
                 )}
             </div>
 
-            {!seeComments && (
-                <div className="grid w-full grid-cols-12 ">
+            {!seeComments  && (
+                <div className={`grid w-full grid-cols-12 ${!people.length ? " h-0 " : " h-20 "}     transition-all ease-in duration-200  `}>
                     <div className={`h-20 py-2 px-4   flex   col-span-2 `}>
                         <div className="relative w-fit flex items-center   ">
                             {people.length &&
