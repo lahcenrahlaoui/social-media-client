@@ -14,8 +14,8 @@ const Meteo = () => {
 
     // const [followingList, setFollowingsList] = useState([]);
 
-    const state = useSelector((state) => state.followingList);
 
+    
     const [myLocation, setMyLocation] = useState({
         latitude: "",
         longitude: "",
@@ -43,7 +43,7 @@ const Meteo = () => {
 
     useEffect(() => {
         getMyLocation();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (myLocation.latitude !== "") {
@@ -54,9 +54,6 @@ const Meteo = () => {
 
                 const urlMinutely = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${apikey}&include=minutely`;
                 const responseMinutely = await axios.get(urlMinutely);
-
-                // const urlWeeklytest = `https://api.weatherbit.io/v2.0/forecast/agweather?lat=${lat}&lon=${lon}&key=${apikey}&include=minutely`;
-                // const responseWeeklytest = await axios.get(urlWeeklytest);
 
                 const urlWeekly = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${apikey}&days=7`;
                 const responseWeekly = await axios.get(urlWeekly);
@@ -69,36 +66,27 @@ const Meteo = () => {
         }
     }, [myLocation]);
 
-    const renderDays = [];
-
-    const renderDaysx = weatherWeekly?.map((day) => {
+    const renderDays = weatherWeekly?.map((day) => {
         const dayName = format(new Date(day.datetime), "EEEE");
-       
-        
+
         return (
             <div
                 key={day.valid_date}
                 className=" text-white  flex flex-col  justify-center w-10 lg:w-8 items-center "
             >
-                <div className="text-xs   lg:text-xs  ">{dayName.slice(0,3)}</div>
+                <div className="text-xs   lg:text-xs  ">
+                    {dayName.slice(0, 3)}
+                </div>
                 <div className="text-base lg:text-xl ">
                     <ReturnIcon code={day?.weather?.code} />
                 </div>
-                <div className="text-sm   lg:text-md ">{Math.round(day.temp)}
-                <span className="font-thin text-md">&deg;</span>
+                <div className="text-sm   lg:text-md ">
+                    {Math.round(day.temp)}
+                    <span className="font-thin text-md">&deg;</span>
                 </div>
             </div>
         );
     });
-
-    // for (let i = 0; i < weatherWeekly?.length - 2; i++) {
-    //     const item = (
-    //         <div key={i} className="bg-blue-100 w-8 flex justify-center ">
-    //             {weatherWeekly[i].skin_temp_avg}
-    //         </div>
-    //     );
-    //     renderDays.push(item);
-    // }
 
     return (
         <div className="sticky top-16  h-80  ">
@@ -121,7 +109,7 @@ const Meteo = () => {
                         </div>
 
                         <div className="flex justify-center gap-1.5 lg:gap-0.5 bg-[#eeeeee70] w-full h-20 mt-4 py-0.5 lg:py-0.75">
-                            {renderDaysx}
+                            {renderDays}
                         </div>
 
                         <div className=" text-4xl lg:text-lg  font-semibold ">
