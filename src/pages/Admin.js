@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import Post from "../components/Post.js";
+import Post from "components/post/Post.js";
 import { useEffect } from "react";
-import { getPosts } from "../actions";
-import NavBar from "../components/NavBar.js";
-import Hero from "../components/Hero.js";
+import { getPosts } from "actions";
+import NavBar from "components/Navbar/NavBar.js";
+import Hero from "components/Hero.js";
 import { Link } from "react-router-dom";
 
 function Admin() {

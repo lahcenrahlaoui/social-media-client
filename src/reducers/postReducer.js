@@ -16,8 +16,10 @@ import {
     LOADING_SUGGESTION_LIST,
     SET_SUGGESTION_LIST,
     UPDATE_SUGGESTION_LIST,
-} from "../constants";
+} from "constants";
 
+////////////////////////////////////////////////////////////////////////////////
+// get pne post
 const postReducerState = {
     data: {},
     isLoading: true,
@@ -42,7 +44,7 @@ export const postReducer = (state = postReducerState, action) => {
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-
+// getting posts
 const postsReducerState = {
     data: [],
     isLoading: true,
@@ -72,6 +74,8 @@ export const postsReducer = (state = postsReducerState, action) => {
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+
+// likes initialise
 const initialLikes = {
     data: [],
     isLoading: false,
@@ -107,6 +111,7 @@ export const likeReducer = (state = initialLikes, action) => {
 
 /////////////////////////////////////////////////////////////////////////////////
 
+// initialize state comments
 const initialComments = {
     data: {},
     isLoading: false,
@@ -223,7 +228,11 @@ export const commentsReducer = (state = initialComments, action) => {
 // };
 
 ////////////////////////////////////////////////////////////////////////////////////
+/**/
 
+//////////////////////////////////////////////////////////////////////////////
+
+// initialize state for the following list
 const intialFollowingList = {
     data: [],
     isLoading: false,
@@ -236,7 +245,6 @@ export const followingListReducer = (state = intialFollowingList, action) => {
                 isLoading: true,
             };
         case SET_FOLLOWING_LIST:
-           
             return {
                 ...state,
                 data: action.payload,
@@ -247,6 +255,9 @@ export const followingListReducer = (state = intialFollowingList, action) => {
             return state;
     }
 };
+
+//////////////////////////////////////////////////////////////////////////////
+// initialize state for the suggestions list
 
 const initialSeggestionList = {
     data: [],

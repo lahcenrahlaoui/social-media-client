@@ -1,4 +1,4 @@
-import { LOGOUT } from "../constants";
+import { LOGOUT } from "constants";
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogout = () => {

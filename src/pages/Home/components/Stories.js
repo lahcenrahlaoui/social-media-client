@@ -3,9 +3,9 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "hooks/useAuthContext";
 
-import { getFollowingUserAction } from "../actions";
+import { getFollowingUserAction } from "actions";
 const Stories = () => {
     const { user } = useAuthContext();
 
@@ -34,7 +34,10 @@ const Stories = () => {
 
     let renderCats = cats.map((cat) => {
         return (
-            <div className="rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-0.5 cursor-pointer">
+            <div
+                key={cat}
+                className="rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-0.5 cursor-pointer"
+            >
                 <img
                     className="rounded-full w-14 h-14 object-cover "
                     src={cat}

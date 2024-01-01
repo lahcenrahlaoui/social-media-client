@@ -2,10 +2,10 @@
 
 import axios from "axios";
 import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "hooks/useAuthContext";
 import { useDispatch, useSelector } from "react-redux";
 
-import x from "../images/download.svg";
+import x from "images/download.svg";
 
 import { ReturnIcon } from "./ReturnIcon";
 import { format } from "date-fns";
@@ -89,7 +89,7 @@ const Meteo = () => {
     });
 
     return (
-        <div className="sticky top-16  h-80  ">
+        <div className="  top-16  h-80  ">
             <div className=" relative flex flex-col items-center gap-2 rounded-xl h-full border bg-[#5596E6]  ">
                 <img
                     className="absolute w-full h-full object-cover bg-blue-200 opacity-60 rounded-xl "
@@ -113,7 +113,7 @@ const Meteo = () => {
                         </div>
 
                         <div className=" text-4xl lg:text-lg  font-semibold ">
-                            {weatherMinutely?.city_name} ,{" "}
+                            {weatherMinutely?.city_name} , 
                             {weatherMinutely?.timezone}
                         </div>
                     </div>

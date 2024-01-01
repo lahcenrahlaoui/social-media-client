@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { LOGIN, LOGOUT } from "../constants";
+import { LOGIN, LOGOUT } from "constants";
 
 export const AuthContext = createContext();
 export const authReducer = (state, action) => {

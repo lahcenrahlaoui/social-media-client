@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
-import logo_page from "../images/logo_page.png";
-import { useMenuAnimation } from "../hooks/useMenuAnimation";
+import logo_page from "images/logo_page.png";
+import { useMenuAnimation } from "hooks/useMenuAnimation";
 
-import { useLogout } from "../hooks/useLogout";
+import { useLogout } from "hooks/useLogout";
+import SearchComponent from "./SearchComponent";
 const NavBar = ({ user, focused }) => {
     // for menu dropdown animation
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ const NavBar = ({ user, focused }) => {
         return () => {
             document.removeEventListener("mousedown", handler);
         };
-    }, [isOpen]);
+    }, [isOpen, scope]);
 
     // drop down menu
     const data = (
@@ -63,7 +64,7 @@ const NavBar = ({ user, focused }) => {
 
                 <li className="block px-4 py-2 hover:bg-gray-200 ">
                     <Link
-                        to={"/signin"}
+                        to={"/auth/signin"}
                         className=" font-semibold capitalize"
                         href="#"
                         onClick={handleLougout}
@@ -76,30 +77,27 @@ const NavBar = ({ user, focused }) => {
     );
 
     return (
-        <div className={`w-[100vw] flex justify-center  fixed bg-[#f0f0f0] ${ focused ? "z-[20]" : "z-[50]" }  `} >
+        <div
+            className={`w-[100vw] flex justify-center  fixed bg-white ${
+                focused ? "z-[20]" : "z-[50]"
+            }  `}
+        >
             <div
                 className={` flex justify-between w-5/6 px-4 py-2 gap-10 h-14 `}
             >
                 <img src={logo_page} style={{ width: 100, height: 50 }} />
 
+                <SearchComponent />
+
                 <div className=" flex gap-20 items-center    ">
                     {user ? (
                         <>
                             <div className="relative ">{data}</div>
-
-                            {/* <Link
-                                to={"/signin"}
-                                className="text-xl font-semibold capitalize"
-                                href="#"
-                                onClick={handleLougout}
-                            >
-                                logout
-                            </Link> */}
                         </>
                     ) : (
                         <>
                             <Link
-                                to={"/signin"}
+                                to={"/auth/signin"}
                                 className="text-xl font-semibold capitalize"
                                 href="#"
                                 onClick={handleLougout}
@@ -107,7 +105,7 @@ const NavBar = ({ user, focused }) => {
                                 login
                             </Link>
                             <Link
-                                to={"/login"}
+                                to={"/auth/login"}
                                 className="text-xl font-semibold capitalize"
                                 href="#"
                                 onClick={handleLougout}

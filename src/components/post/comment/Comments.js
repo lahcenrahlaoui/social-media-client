@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 
-import { Divider } from "@mui/material";
 import { differenceInMinutes } from "date-fns";
 import { BiHeart } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCommentsAction } from "../../actions";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { fetchCommentsAction } from "actions";
+import { useAuthContext } from "hooks/useAuthContext";
+import { formateDate } from "utils/functions";
 const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
     const { user } = useAuthContext();
     const dispatch = useDispatch();
@@ -31,11 +31,7 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
         }
     }, [seeComments, item, user]);
 
-    const datex = (date) => {
-        let minutes = differenceInMinutes(new Date(), new Date(date));
-
-        return minutes;
-    };
+    console.log("******************************");
 
     let renderComments;
     if (Object.keys(state.data).includes(item._id)) {
@@ -59,7 +55,7 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
                                 </div>
                                 <p>{comment.content}</p>
                                 <p className="text-gray-600 text-xs">
-                                    {datex(comment.createdAt)} Minutes
+                                    {formateDate(comment.createdAt)}
                                 </p>
                             </div>
                         </div>
@@ -68,7 +64,6 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
                         </div>
                     </div>
 
-                 
                     <div className="bg-gray-200 w-full h-px  my-3">&nbsp;</div>
                 </React.Fragment>
             );

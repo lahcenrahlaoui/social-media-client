@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { BASE_URL } from "../constants";
+import { useAuthContext } from "hooks/useAuthContext";
+import { BASE_URL } from "constants";
 
 const ImageComponent = ({ image_thumbnail, image, _id }) => {
     const [bigImage, setBigImage] = useState("");
@@ -36,9 +36,16 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
     }, [_id, image, user.token]);
 
     return (
+        <div className="flex justify-center overflow-hidden rounded-lg  h-96 min-h-fit ">
         <div
             before=""
-            className={`bg-cover bg-center w-full before:content-[attr(before)] h-full inset-0 bg-black bg-opacity-10 flex justify-center  ${
+            className={`bg-cover bg-center w-full before:content-[attr(before)] 
+                            inset-0 bg-black bg-opacity-10 flex justify-center 
+                            h-full 
+                            
+                          
+                            
+                            ${
                 !show && " animate-pulse"
             } `}
             style={{ backgroundImage: `url(${image_thumbnail})` }}
@@ -48,13 +55,14 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                     ref={imageRef}
                     src={bigImage}
                     loading="lazy"
-                    className={`w-full h-full   ${
+                    className={`w-full h-full object-cover  ${
                         show
                             ? "opacity-1 transition-all ease-in delay-100 duration-300 "
                             : "opacity-0"
                     }  `}
                 />
             </div>
+        </div>
         </div>
     );
 };

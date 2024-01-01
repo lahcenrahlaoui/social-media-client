@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
-import { getPost } from "../actions";
+import { getPost } from "actions";
 import { useLocation } from "react-router-dom";
-import NavBar from "../components/NavBar.js";
+import NavBar from "components/Navbar/NavBar.js";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";

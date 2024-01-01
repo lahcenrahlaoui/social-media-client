@@ -2,39 +2,39 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useAuthContext } from "./hooks/useAuthContext.js";
-import Home from "./pages/Home.js";
-import Signin from "./pages/Signin.js";
-import Signup from "./pages/Signup.js";
-import X from "./pages/Editor.js";
+import Home from "pages/Home/";
+import Signin from "./pages/Auth/Signin.js";
+import Signup from "./pages/Auth/Signup.js";
+
+import Profile from "pages/Profile";
 
 function App() {
     const { user } = useAuthContext();
-   
+
+    console.log(user);
     return (
         <div className=" flex items-center justify-center app">
             <BrowserRouter>
                 <Routes>
                     <Route
                         exact
-                        path="/x"
-                        element={user ? <X />: <Navigate to="/x" />}
-                    />
-                    <Route
-                        exact
-                        path="/signin"
+                        path="/auth/signin"
                         element={!user ? <Signin /> : <Navigate to="/" />}
                     />
                     <Route
                         exact
-                        path="/signup"
+                        path="/auth/signup"
                         element={!user ? <Signup /> : <Navigate to="/" />}
                     />
 
                     <Route
                         exact
                         path="/"
-                        element={user ? <Home /> : <Navigate to="/signin" />}
+                        element={
+                            user ? <Home /> : <Navigate to="/auth/signin" />
+                        }
                     />
+                    <Route path="/:id" element={user && <Profile />} />
 
                     {/* 
                     <Route exact path="/admin" element={user && <Admin />} />

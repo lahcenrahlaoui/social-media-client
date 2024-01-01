@@ -1,10 +1,9 @@
 import {
-    getPostById,
-    getPostsAll,
     setNewPost,
-    setUserLike,
-    setUserComment,
-} from "../api";
+    fetchPostById,
+    fetchPostsAll,
+    fetchPostsProfile,
+} from "api";
 import {
     GET_POST,
     GET_POSTS_ALL,
@@ -12,13 +11,13 @@ import {
     IS_LOADING,
     SET_LIKE,
     SET_NEW_LIKE,
-} from "../constants";
+} from "constants";
 
 export const getPostAction = (id, user) => async (dispatch) => {
     dispatch({
         type: IS_LOADING,
     });
-    const response = await getPostById(id);
+    const response = await fetchPostById(id);
 
     dispatch({
         type: GET_POST,
@@ -31,8 +30,9 @@ export const getPostsAction = (user) => async (dispatch) => {
         type: IS_LOADING,
     });
 
-    const response = await getPostsAll(user);
+    const response = await fetchPostsAll(user);
 
+    console.log(response.data);
     const ids = response.data.map((d) => d._id);
     const likes = response.data.map((d) => d.likes);
 
@@ -42,7 +42,6 @@ export const getPostsAction = (user) => async (dispatch) => {
         };
     });
 
- 
     dispatch({
         type: GET_POSTS_ALL,
         payload: response.data,
@@ -54,7 +53,7 @@ export const getPostsAction = (user) => async (dispatch) => {
     });
 };
 
-export const setPostAction = (data, user) => async (dispatch) => {
+export const setPostAction = (data, user) => async (dispatch, getState, x) => {
     const response = await setNewPost(data, user);
 
     response.data.image = URL.createObjectURL(data.get("image"));
@@ -66,12 +65,38 @@ export const setPostAction = (data, user) => async (dispatch) => {
 
     // this added hero to handle likes
 
-    
     const changeThis = {
         [response.data._id]: response.data.likes,
     };
     dispatch({
         type: SET_NEW_LIKE,
         payload: changeThis,
+    });
+};
+
+export const getPostsProfile = (user) => async (dispatch) => {
+    dispatch({
+        type: IS_LOADING,
+    });
+
+    const response = await fetchPostsProfile(user);
+
+    const ids = response.data.map((d) => d._id);
+    const likes = response.data.map((d) => d.likes);
+
+    const result = ids.map((item, idx) => {
+        return {
+            [item]: likes[idx],
+        };
+    });
+
+    dispatch({
+        type: GET_POSTS_ALL,
+        payload: response.data,
+    });
+
+    dispatch({
+        type: SET_LIKE,
+        payload: result,
     });
 };

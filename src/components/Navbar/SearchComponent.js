@@ -2,10 +2,8 @@ import React from "react";
 
 const SearchComponent = () => {
     return (
-        <form className="flex items-center  ">
-            <label   className="sr-only">
-                Search
-            </label>
+        <form className="flex items-center  w-2/3 lg:w-1/3 ">
+            <label className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                     <svg

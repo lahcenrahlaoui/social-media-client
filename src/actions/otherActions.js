@@ -3,8 +3,8 @@ import {
     getFollowingList,
     setNewComment,
     getSuggestionList,
-} from "../api";
-import { fetchCommentsByPost, setOneLike } from "../api";
+} from "api";
+import { fetchCommentsByPost, setOneLike } from "api";
 import {
     GET_COMMENTS_ALL,
     IS_LOADING_COMMENTS,
@@ -16,7 +16,7 @@ import {
     SET_ONE_LIKE,
     SET_SUGGESTION_LIST,
     UPDATE_SUGGESTION_LIST,
-} from "../constants";
+} from "constants";
 
 export const setOneLikeAction = (_id, user) => async (dispatch) => {
     const response = await setOneLike(_id, user);

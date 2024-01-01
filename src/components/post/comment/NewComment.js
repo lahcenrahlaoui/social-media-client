@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCommentAction } from "../../actions";
+import { setCommentAction } from "actions";
 import { BiSend } from "react-icons/bi";
-import { useAuthContext } from "../../hooks/useAuthContext";
-const NewComment = ({ item, placeholder, setAdds }) => {
+import { useAuthContext } from "hooks/useAuthContext";
+const NewComment = ({ item, placeholder,     setAddition }) => {
     const [content, setContent] = useState("");
 
     const { user } = useAuthContext();
@@ -20,7 +20,7 @@ const NewComment = ({ item, placeholder, setAdds }) => {
         }
         if (user) {
             dispatch(setCommentAction(data, user));
-            setAdds((state) => state + 1);
+            setAddition((state) => state + 1);
             setContent("");
         }
     };

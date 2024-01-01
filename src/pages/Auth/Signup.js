@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSignup } from "../hooks/useSignup";
+import { useSignup } from "hooks/useSignup";
 import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -125,7 +125,7 @@ function Signup() {
                         <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                             Already have an account ?{" "}
                             <Link
-                                to={"/signin"}
+                                to={"/auth/signin"}
                                 className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                             >
                                 Sign in

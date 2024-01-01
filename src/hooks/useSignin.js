@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 
-import { LOGIN } from "../constants";
+import { LOGIN } from "constants";
 import { useAuthContext } from "./useAuthContext";
-import {BASE_URL} from "../constants"
+import {BASE_URL} from "constants"
 export const useSignin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsloading] = useState(null);

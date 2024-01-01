@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Friend from "./Friend";
+import Friend from "../../../components/Friend";
 import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "hooks/useAuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import { followingUserAction, getSuggestionAction } from "../actions";
+import { followingUserAction, getSuggestionAction } from "actions";
 
-const FrinedSide = () => {
+const Suggestions = () => {
     const { user } = useAuthContext();
 
     const state = useSelector((state) => state.suggestionList);
@@ -27,18 +27,15 @@ const FrinedSide = () => {
 
     return (
         <div className="  w-full bg-white  ">
-            <div className="  flex flex-col items-center gap-2 rounded-xl  py-2 border  ">
+            <div className="  flex flex-col items-center gap-2 rounded-xl  py-2 border   ">
                 <div className="font-2xl font-bold">suggestion</div>
 
-                {/* <div className="grid grid-col-1 gap-1   "> */}
-                <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-3  gap-1 ">
-
-                    
-                    
-                    {renderList}</div>
+                <div className="flex flex-wrap  items-center justify-center  ">
+                    {renderList}
+                </div>
             </div>
         </div>
     );
 };
 
-export default FrinedSide;
+export default Suggestions;

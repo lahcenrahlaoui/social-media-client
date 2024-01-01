@@ -1,14 +1,12 @@
 import axios from "axios";
 
- 
-import {BASE_URL} from "../constants"
- 
+import { BASE_URL } from "constants";
 
 const credentials = {
     withCredentials: true,
 };
 
-export const getPostById = async (id, user) => {
+export const fetchPostById = async (id, user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
@@ -23,7 +21,7 @@ export const getPostById = async (id, user) => {
 
     return response;
 };
-export const getPostsAll = async (user) => {
+export const fetchPostsAll = async (user) => {
     const config = {
         headers: {
             authorization: `Bearer ${user.token}`,
@@ -35,6 +33,8 @@ export const getPostsAll = async (user) => {
 
     return response;
 };
+
+export const fetchPostsProfile = async () => {};
 
 export const setNewPost = async (data, user) => {
     const config = {
@@ -113,6 +113,8 @@ export const fetchCommentsByPost = async (data, user) => {
 
     return response;
 };
+
+// following
 export const setFollowingUser = async (data, user) => {
     const config = {
         headers: {
@@ -147,6 +149,7 @@ export const getFollowingList = async (data, user) => {
     return response;
 };
 
+// suggestions 
 export const getSuggestionList = async (data, user) => {
     const config = {
         headers: {
