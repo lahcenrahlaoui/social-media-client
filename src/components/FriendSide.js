@@ -26,12 +26,12 @@ const FrinedSide = () => {
     }
 
     return (
-        <div className="  w-full   ">
+        <div className="  w-full bg-white  ">
             <div className="  flex flex-col items-center gap-2 rounded-xl  py-2 border  ">
                 <div className="font-2xl font-bold">suggestion</div>
 
                 {/* <div className="grid grid-col-1 gap-1   "> */}
-                <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-5 gap-1 ">
+                <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-3  gap-1 ">
 
                     
                     

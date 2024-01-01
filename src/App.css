@@ -32,3 +32,107 @@
     font-size: 12px;
     position: absolute;
 }
+
+
+/* Parts are from twitter.com */
+
+ 
+  
+  .animate {
+    animation: heart-burst .8s steps(0) forwards;
+  }
+  
+  @keyframes heart-burst {
+      0% {
+          background-position: center
+      }
+      100% {
+          background-position: center
+      }
+  }
+
+
+  /*****************************/
+
+/* 
+
+  <svg class="mo-icon__svg" x="0px" y="0px"
+  viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" id="heart4">
+<g id="icon_x5F_wishlist">
+ <g transform="translate(0,-952.36218)">
+     <path class="st0" id="st0" d="M15.33293,980.7616c-19.11968,19.8092-19.10147,51.68518,0,71.51379l84.61456,87.86926
+         c28.23759-29.25574,56.47517-58.51135,84.71275-87.76758c19.11969-19.80969,19.11969-51.70477,0-71.51422
+         c-19.12007-19.80945-49.90512-19.80994-69.02521,0l-15.58933,16.15155l-15.68754-16.25305
+         c-19.12008-19.80945-49.90513-19.80945-69.02521,0L15.33293,980.7616z"/>
+ </g>
+</g>
+</svg>
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+#heart4 {
+    max-height: 70px;
+    fill: white;
+    stroke: white;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .dot-animation {
+    position: relative;
+  }
+  
+  
+  .dot {
+    height: 10px;
+    width: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute; 
+    
+     &:nth-child(1){
+      background: #D22128;
+      left: 45%;
+      top: 30px;
+    }
+  }
+  
+  .bands {
+    animation: snap 1s forwards;
+    stroke-width: 0;
+    
+  }
+  
+  @keyframes snap {
+    from { 
+      transform: scale3d(1, 1, 1); 
+      filter: brightness(0.5);}
+    30% {  
+      transform: scale3d(1.25, 0.75, 1); }
+    40% {  
+      transform: scale3d(0.75, 1.25, 1); }
+    50% {  
+      transform: scale3d(1.15, 0.85, 1); }
+    65% {  
+      transform: scale3d(.95, 1.05, 1); }
+    75% {  
+      transform: scale3d(1.05, .95, 1); }
+    to {   
+      transform: scale3d(1, 1, 1);
+      fill: #D22128; 
+      filter: brightness(1);}
+  }
+  
+  

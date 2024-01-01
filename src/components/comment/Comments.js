@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 
-import { Divider, Paper } from "@mui/material";
+import { Divider } from "@mui/material";
+import { differenceInMinutes } from "date-fns";
+import { BiHeart } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommentsAction } from "../../actions";
-import { BiHeart } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { differenceInMinutes } from "date-fns";
 const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
     const { user } = useAuthContext();
     const dispatch = useDispatch();
@@ -68,10 +68,8 @@ const Comments = ({ item, seeComments, skipValue, setSkipValue }) => {
                         </div>
                     </div>
 
-                    <Divider
-                        variant="fullWidth"
-                        style={{ margin: "0.5rem 0" }}
-                    />
+                 
+                    <div className="bg-gray-200 w-full h-px  my-3">&nbsp;</div>
                 </React.Fragment>
             );
         });

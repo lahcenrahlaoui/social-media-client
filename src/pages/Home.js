@@ -10,6 +10,7 @@ import NavSide from "../components/NavSide.js";
 import SearchComponent from "../components/SearchComponent.js";
 import { useAuthContext } from "../hooks/useAuthContext.js";
 import Stories from "../components/Stories.js";
+import Meteo from "../components/Meteo.js";
 
 function Home() {
     const state = useSelector((state) => state.posts);
@@ -70,6 +71,7 @@ function Home() {
                                         : "focused-opacity"
                                 } flex flex-col gap-2 col-span-12 lg:col-span-3  px-3  `}
                             >
+                                <Meteo />
                                 <NavSide />
                             </div>
                             <div
@@ -118,16 +120,20 @@ function Home() {
                                 </div>
                             </div>
                             <div
-                                className={`
-                                
-                                flex flex-col gap-2 
-                                ${
-                                    !focused
-                                        ? "focused-opacity-none"
-                                        : "focused-opacity"
-                                } hidden lg:block  col-span-3  `}
-                            >
+                                            className={` 
+                                            hidden lg:flex 
+                                            flex-col 
+                                            gap-8
+                                            ${
+                                                !focused
+                                                    ? "focused-opacity-none"
+                                                    : "focused-opacity"
+                                            }  
+                                            col-span-3  
+                                            `}
+                                             >
                                 <Stories />
+
                                 <FriendSide />
                             </div>
                         </div>

@@ -1,29 +1,25 @@
-import { BiShare } from "react-icons/bi";
+/* eslint-disable jsx-a11y/alt-text */
+import { BiComment, BiHeart, BiLike, BiShare, BiX } from "react-icons/bi";
 
-import Like from "./LikeIcon";
+import LikeIcon from "./LikeIcon";
 
 import { Markup } from "interweave";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import {
-    differenceInDays,
-    differenceInHours,
-    differenceInMinutes,
-    format,
-    parseISO,
-} from "date-fns";
+
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageComponent from "./ImageComponent";
 import CommentIcon from "./comment/CommentIcon";
 import Comments from "./comment/Comments";
 import NewComment from "./comment/NewComment";
 
-import { useMenuAnimation } from "../hooks/useMenuAnimation";
+// import { useMenuAnimation } from "../hooks/useMenuAnimation";
+import { formateDate } from "../utils/functions";
 const Post = ({ item }) => {
     // for menu dropdown animation
     const [isOpen, setIsOpen] = useState(false);
-    const scope = useMenuAnimation(isOpen);
+    // const scope = useMenuAnimation(isOpen);
 
     // for text in post
     const [showMore, setShowMore] = useState(false);
@@ -36,21 +32,6 @@ const Post = ({ item }) => {
 
     // to hide comments ( collapse )
     const [seeComments, setSeeComments] = useState(false);
-
-    const formateDate = (date) => {
-        let time = differenceInMinutes(new Date(), new Date(date)) + " m";
-        if (time > 59) {
-            time = differenceInHours(new Date(), new Date(date)) + " h";
-            if (time > 23) {
-                time = differenceInDays(new Date(), new Date(date)) + " d";
-                if (time > 4) {
-                    time = format(parseISO(date), "MM/dd/yyyy");
-                }
-            }
-        }
-
-        return time;
-    };
 
     // handle content
     let showItem;
@@ -73,165 +54,194 @@ const Post = ({ item }) => {
 
     // for dropdown
 
-    useEffect(() => {
-        let handler = (e) => {
-            if (!scope.current.contains(e.target)) {
-                setIsOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handler);
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        };
-    }, [isOpen]);
+    // useEffect(() => {
+    //     let handler;
+    //     if (scope.current !== null) {
+    //         handler = (e) => {
+    //             if (!scope.current.contains(e.target)) {
+    //                 setIsOpen(false);
+    //             }
+    //         };
+    //         document.addEventListener("mousedown", handler);
+    //     }
+    //     return () => {
+    //         document.removeEventListener("mousedown", handler);
+    //     };
+    // }, [isOpen, scope]);
 
     // drop down menu
     const data = (
-        <nav ref={scope} className={`relative w-60 h-20 `}>
-            <motion.button
-                className="right-0 absolute  cursor-pointer "
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <div className="arrow">
-                    <MoreHorizIcon />
-                </div>
-            </motion.button>
-
-            {/* className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer */}
-
+        <div className="group inline-block relative   ">
+            <button>
+                <MoreHorizIcon />
+            </button>
             <ul
-                className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer
-
-                                    overflow-hidden  transition-all duration-300 ease-in-out
-
-                               
-                                    `}
+                className="  border rounded-md transform scale-0 group-hover:scale-100 
+                                 absolute   bg-white  right-0
+                                transition duration-150 ease-in-out origin-top min-w-32"
             >
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
+                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
+                    Programming
                 </li>
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
+                <div className="bg-gray-200 w-full h-px">&nbsp;</div>
+
+                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
+                    DevOps
                 </li>
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
-                </li>
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
-                </li>
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
-                </li>
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
+                <div className="bg-gray-200 w-full h-px">&nbsp;</div>
+                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
+                    Testing
                 </li>
             </ul>
-        </nav>
-
-        // <div className={`relative  w-60 h-20 ${open && "  "} `}>
-        //     <div
-        //         ref={menuRef}
-        //         className="right-0 absolute  cursor-pointer "
-        //         onClick={() => handleToggle()}
-        //     >
-        //         <MoreHorizIcon />
-        //     </div>
-
-        //     <div
-        // className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow absolute top-6 w-full cursor-pointer
-
-        //                 overflow-hidden  transition-all duration-300 ease-in-out
-
-        //                 ${
-        //                     open
-        //                         ? "grid-rows-[1fr] opacity-100"
-        //                         : "grid-rows-[0fr] opacity-0"
-        //                 }
-        //         `}
-        //     >
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //         <div className="block px-4 py-2 hover:bg-gray-200 ">
-        //             Hide idem
-        //         </div>
-        //     </div>
-        // </div>
+        </div>
     );
-    
+
+    const myRef = useRef(null);
+
+    const executeScroll = () => {
+        myRef?.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    };
+
     return (
-        <div className="flex flex-col justify-between bg-white border border-gray-200 rounded-3xl   ">
-            <div className="flex flex-col w-full gap-1 p-3">
-                <div className="flex justify-between px-2">
-                    <div className="flex gap-2">
-                        <div className="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem]">
-                            <img
-                                src={item.image_user}
-                                className="bg-yellow-200 rounded-full  object-cover  w-10 h-10"
+        <div
+            ref={myRef}
+            className=" flex flex-col justify-between bg-white border border-gray-200 rounded-2xl   "
+        >
+            <div className=" relative flex flex-col w-full gap-1 p-3">
+                {!seeComments && (
+                    <div className=" relative flex flex-col w-full gap-1 p-2">
+                        <div className="flex justify-between px-2">
+                            <div className="flex gap-2">
+                                <div className="w-12 h-12 min-w-[3rem] min-h-[3rem]   ">
+                                    <img
+                                        src={item.image_user}
+                                        className="bg-yellow-200 rounded-full  object-cover  w-12 h-12"
+                                    />
+                                </div>
+
+                                <div className="   flex flex-col justify-center">
+                                    <div className="text-sm font-semibold capitalize">
+                                        {" "}
+                                        {item.name}
+                                    </div>
+                                    <div className="text-xs text-gray-600">
+                                        {formateDate(item.createdAt)}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relative ">{data}</div>
+                        </div>
+                        <div className=" text-lg text-gray-900 whitespace-normal mt-4 ">
+                            <Markup content={showItem} />
+                            {item.content.length > 50 && (
+                                <button
+                                    className="block text-xs underline text-blue-300"
+                                    onClick={() =>
+                                        setShowMore((state) => !state)
+                                    }
+                                >
+                                    {showMore ? "show less" : "Show more"}
+                                </button>
+                            )}
+                        </div>
+                        <div className="text-xs text-blue-400 whitespace-normal ">
+                            {tags.join(" ").toString()}
+                        </div>
+                        <div className="flex justify-center overflow-hidden rounded-lg">
+                            <ImageComponent
+                                image={item.image}
+                                image_thumbnail={item.image_thumbnail}
+                                _id={item._id}
                             />
                         </div>
 
-                        <div className="text-sm font-semibold">
-                            <div> {item.name}</div>
-                            <div>{formateDate(item.createdAt)}</div>
+                        <div
+                            className=" absolute flex justify-end gap-2 
+                                bottom-0 text-lg
+                                right-6 w-full translate-y-1/4	
+                        "
+                        >
+                            <div
+                                onClick={() => {
+                                    executeScroll();
+                                    setSeeComments(true);
+                                }}
+                                className="cursor-pointer bg-[#6BA4E9] flex items-center justify-center 
+                                                p-3 text-white rounded-full "
+                            >
+                                <BiComment />
+                            </div>
+
+                            <LikeIcon item={item} />
                         </div>
                     </div>
-                    <div className="relative ">{data}</div>
-                </div>
-                <div className=" text-lg text-gray-900 whitespace-normal ">
-                    <Markup content={showItem} />
-                    {item.content.length > 50 && (
-                        <button
-                            className="block text-xs underline text-blue-300"
-                            onClick={() => setShowMore((state) => !state)}
+                )}
+
+                {seeComments && (
+                    <div className=" relative flex flex-col w-full gap-1 p-3">
+                        <div className="flex w-full justify-between">
+                            <div>comments</div>
+                            <div
+                                className="cursor-pointer text-red-600 text-3xl"
+                                onClick={() => setSeeComments(false)}
+                            >
+                                <BiX />
+                            </div>
+                        </div>
+                        <div
+                            className={`grid text-sm text-slate-600 overflow-hidden  transition-all duration-300 ease-in-out ${
+                                seeComments
+                                    ? "grid-rows-[1fr] opacity-100"
+                                    : "grid-rows-[0fr] opacity-0"
+                            }`}
                         >
-                            {showMore ? "show less" : "Show more"}
-                        </button>
-                    )}
-                </div>
-                <div className="text-xs text-blue-400 whitespace-normal ">
-                    {tags.join(" ").toString()}
-                </div>
-                <div className="flex justify-center overflow-hidden rounded-lg">
-                    <ImageComponent
-                        image={item.image}
-                        image_thumbnail={item.image_thumbnail}
-                        _id={item._id}
-                    />
-                </div>
+                            <div className="overflow-hidden flex justify-center  flex-col  ">
+                                {seeComments && (
+                                    <Comments
+                                        commentId={item._id}
+                                        item={item}
+                                        seeComments={seeComments}
+                                        skipValue={skipValue}
+                                        setSkipValue={setSkipValue}
+                                    />
+                                )}
+                                <NewComment
+                                    item={item}
+                                    setAdds={setAdds}
+                                    placeholder={"Add comment"}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
-            <div className="flex justify-around w-full border-y ">
-                <Like item={item} />
-
-                <CommentIcon
-                    length={item.comments.length + adds}
-                    onClick={() => {
-                        setSeeComments(!seeComments);
-                    }}
-                    seeComments={seeComments}
-                />
-
-                <div className="flex items-center justify-center w-1/3 gap-2 py-2 border-x hover:bg-blue-200">
-                    <BiShare /> {item.share?.length || 0}
+            {!seeComments && (
+                <div>
+                    fjksdalk jl fjlsdkj ofijweqio j <br />
+                    fjksdalk jl fjlsdkj ofijweqio j <br />
+                    fjksdalk jl fjlsdkj ofijweqio j <br />
+                    fjksdalk jl fjlsdkj ofijweqio j <br />
+                    fjksdalk jl fjlsdkj ofijweqio j <br />
                 </div>
-            </div>
+            )}
+            {/* <div className="flex justify-around w-full border-y ">
+                            <LikeIcon item={item} />
+
+                            <CommentIcon
+                                length={item.comments.length + adds}
+                                onClick={() => {
+                                    setSeeComments(!seeComments);
+                                }}
+                                seeComments={seeComments}
+                            />
+                        </div> */}
 
             {/* show comments */}
-            <div
+            {/* <div
                 className={`grid text-sm text-slate-600 overflow-hidden  transition-all duration-300 ease-in-out ${
                     seeComments
                         ? "grid-rows-[1fr] opacity-100"
@@ -254,7 +264,9 @@ const Post = ({ item }) => {
                         placeholder={"Add comment"}
                     />
                 </div>
-            </div>
+            </div> */}
+
+            {!seeComments && data}
         </div>
     );
 };

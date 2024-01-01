@@ -9,6 +9,8 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
     const [show, setShow] = useState(false);
     const { user } = useAuthContext();
 
+    const imageRef = useRef();
+
     useEffect(() => {
         imageRef?.current?.addEventListener("load", () => {
             setShow(true);
@@ -21,8 +23,7 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 };
-              
-          
+
                 const newImage = await axios.get(
                     `${BASE_URL}/api/posts/image/${_id}`,
                     config
@@ -32,17 +33,12 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
         } else {
             setBigImage(image);
         }
-    }, [_id]);
+    }, [_id, image, user.token]);
 
-    const imageRef = useRef();
-    const divRef = useRef();
-
-    
     return (
         <div
-            ref={divRef}
             before=""
-            className={`bg-cover bg-center w-full before:content-[attr(before)] h-fit inset-0 bg-black bg-opacity-10 flex justify-center  ${
+            className={`bg-cover bg-center w-full before:content-[attr(before)] h-full inset-0 bg-black bg-opacity-10 flex justify-center  ${
                 !show && " animate-pulse"
             } `}
             style={{ backgroundImage: `url(${image_thumbnail})` }}
@@ -54,12 +50,11 @@ const ImageComponent = ({ image_thumbnail, image, _id }) => {
                     loading="lazy"
                     className={`w-full h-full   ${
                         show
-                            ? "opacity-1 transition-all  transition ease-in delay-100 duration-300 "
+                            ? "opacity-1 transition-all ease-in delay-100 duration-300 "
                             : "opacity-0"
                     }  `}
                 />
             </div>
-            
         </div>
     );
 };
