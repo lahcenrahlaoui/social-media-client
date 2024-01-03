@@ -23,6 +23,7 @@ const Icons = ({
                     setSeeComments={setSeeComments}
                     executeScroll={executeScroll}
                     addition={addition}
+                    item={item}
                 />
 
                 <LikeIcon

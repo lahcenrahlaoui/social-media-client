@@ -4,6 +4,9 @@ import {
     fetchPostsAll,
     fetchPostsProfile,
 } from "api";
+import { GET_POSTS_ALL_FROM_USER } from "constants";
+import { IS_LOADING_POSTS_FOR_PROFILE } from "constants";
+import { IS_LOADING_POSTS_FROM_USER } from "constants";
 import {
     GET_POST,
     GET_POSTS_ALL,
@@ -76,7 +79,7 @@ export const setPostAction = (data, user) => async (dispatch, getState, x) => {
 
 export const getPostsProfile = (user) => async (dispatch) => {
     dispatch({
-        type: IS_LOADING,
+        type: IS_LOADING_POSTS_FOR_PROFILE,
     });
 
     const response = await fetchPostsProfile(user);
@@ -91,7 +94,7 @@ export const getPostsProfile = (user) => async (dispatch) => {
     });
 
     dispatch({
-        type: GET_POSTS_ALL,
+        type: GET_POSTS_ALL_FROM_USER,
         payload: response.data,
     });
 

@@ -34,7 +34,25 @@ export const fetchPostsAll = async (user) => {
     return response;
 };
 
-export const fetchPostsProfile = async () => {};
+export const fetchPostsProfile = async (user) => {
+  
+
+    const currentUrl = window.location.href;
+
+    const id = currentUrl.split("/").slice(-1)[0];
+
+    const config = {
+        headers: {
+            authorization: `Bearer ${user.token}`,
+        },
+        credentials,
+    };
+    const response = await axios.get(
+        `${BASE_URL}/api/user/get/posts/${id}`,
+        config
+    );
+    return response;
+};
 
 export const setNewPost = async (data, user) => {
     const config = {
@@ -149,7 +167,7 @@ export const getFollowingList = async (data, user) => {
     return response;
 };
 
-// suggestions 
+// suggestions
 export const getSuggestionList = async (data, user) => {
     const config = {
         headers: {

@@ -3,8 +3,6 @@ import { BiSolidComment } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const CommentIcon = ({ length, addition, setSeeComments, executeScroll }) => {
-    const state = useSelector((state) => state.posts);
-    console.log(state?.data[0].comments.length);
     return (
         <div
             onClick={() => {

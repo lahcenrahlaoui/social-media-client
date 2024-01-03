@@ -4,6 +4,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
+import { jwtDecode } from "jwt-decode";
+
 import { Link } from "react-router-dom";
 import logo_page from "images/logo_page.png";
 import { useMenuAnimation } from "hooks/useMenuAnimation";
@@ -20,6 +22,9 @@ const NavBar = ({ user, focused }) => {
     const handleLougout = () => {
         logout();
     };
+
+    const decoded = jwtDecode(user.token);
+    user._id = decoded._id;
 
     useEffect(() => {
         let handler = (e) => {
@@ -59,7 +64,7 @@ const NavBar = ({ user, focused }) => {
                 `}
             >
                 <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    Hide idem
+                    <Link to={"/" + user._id}>Home</Link>
                 </li>
 
                 <li className="block px-4 py-2 hover:bg-gray-200 ">

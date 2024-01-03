@@ -5,9 +5,10 @@ import NavBar from "components/Navbar/NavBar.js";
 import Post from "components/post/Post.js";
 
 import { useAuthContext } from "hooks/useAuthContext.js";
+import MiddleSide from "./MiddleSide";
 
 function Profile() {
-    const state = useSelector((state) => state.posts);
+    const state = useSelector((state) => state.profilePosts);
 
     const { user } = useAuthContext();
 
@@ -41,7 +42,7 @@ function Profile() {
                     transition-all  ease-in duration-500  
                     `}
                     >
-                        qw
+                        <MiddleSide />
                     </div>
                 </>
             )}

@@ -6,7 +6,7 @@ import Home from "pages/Home/";
 import Signin from "./pages/Auth/Signin.js";
 import Signup from "./pages/Auth/Signup.js";
 
-import Profile from "pages/Profile";
+import Profile from "pages/Profile/Profile";
 
 function App() {
     const { user } = useAuthContext();

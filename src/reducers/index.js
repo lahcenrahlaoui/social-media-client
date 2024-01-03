@@ -6,6 +6,7 @@ import {
     commentsReducer,
     followingListReducer,
     suggestionListReducer,
+    postsProfileReducer,
 } from "./postReducer";
 
 const reducers = combineReducers({
@@ -15,6 +16,7 @@ const reducers = combineReducers({
     comments: commentsReducer,
     followingList: followingListReducer,
     suggestionList: suggestionListReducer,
+    profilePosts: postsProfileReducer,
 });
 
 export default reducers;

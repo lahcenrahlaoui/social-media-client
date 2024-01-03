@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthContext } from "hooks/useAuthContext";
 import { useDispatch, useSelector } from "react-redux";
 
-
-
 import { getFollowingUserAction } from "actions";
+import { Link } from "react-router-dom";
 const Friends = () => {
     const { user } = useAuthContext();
 
@@ -19,7 +17,6 @@ const Friends = () => {
     useEffect(() => {
         if (user) {
             const data = {};
-
             dispatch(getFollowingUserAction(data, user));
         }
     }, [dispatch, user]);
@@ -27,17 +24,16 @@ const Friends = () => {
     if (state.data.length > 0) {
         renderCats = state.data.map((friend) => {
             return (
-                <div
-                    key={friend.name}
-                    className="flex items-center justify-center w-[4rem] h-[4rem]   cursor-pointer"
-                >
-                    <div className=" w-14 h-14 hover:w-[4rem] hover:h-[4rem] transition-all duration-200  marker:">
-                        <img
-                            className="rounded-full object-cover h-full w-full "
-                            src={friend.image}
-                        />
+                <Link key={friend.name} to={"/" + friend._id}>
+                    <div className="flex items-center justify-center w-[4rem] h-[4rem]   cursor-pointer">
+                        <div className=" w-14 h-14 hover:w-[4rem] hover:h-[4rem] transition-all duration-200  marker:">
+                            <img
+                                className="rounded-full object-cover h-full w-full "
+                                src={friend.image}
+                            />
+                        </div>
                     </div>
-                </div>
+                </Link>
             );
         });
     }

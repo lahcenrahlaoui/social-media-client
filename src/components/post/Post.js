@@ -101,7 +101,7 @@ const Post = ({ item }) => {
 
     const { user } = useAuthContext();
 
-    console.log(allLikes)
+    console.log(allLikes);
     useEffect(() => {
         (async () => {
             const config = {
@@ -224,8 +224,12 @@ const Post = ({ item }) => {
                 )}
             </div>
 
-            {!seeComments  && (
-                <div className={`grid w-full grid-cols-12 ${!people.length ? " h-0 " : " h-20 "}     transition-all ease-in duration-200  `}>
+            {!seeComments && (
+                <div
+                    className={`grid w-full grid-cols-12 ${
+                        !people.length ? " h-0 " : " h-20 "
+                    }     transition-all ease-in duration-200  `}
+                >
                     <div className={`h-20 py-2 px-4   flex   col-span-2 `}>
                         <div className="relative w-fit flex items-center   ">
                             {people.length &&
@@ -236,12 +240,15 @@ const Post = ({ item }) => {
                                                 style={{
                                                     left: `${idx * 0.8}rem`,
                                                 }}
-                                                className={` hover:z-[10] hover:cursor-pointer  w-8 h-8 hover:w-[3.1rem]  hover:h-[3.1rem] transition-all duration-300 absolute border rounded-full bg-[#8eeee0] `}
+                                                className={`    hover:z-[10] hover:cursor-pointer w-8 h-8 
+                                                                hover:w-[3.1rem] hover:h-[3.1rem] 
+                                                                transition-all duration-300 absolute 
+                                                                border rounded-full bg-[#8eeee0] `}
                                             >
                                                 <img
                                                     src={one.image}
                                                     alt={"da"}
-                                                    className={` w-full h-full   realtive    object-cover rounded-full`}
+                                                    className={` h-full w-full realtive object-cover rounded-full`}
                                                 />
                                             </div>
                                         </>
@@ -249,7 +256,7 @@ const Post = ({ item }) => {
                                 })}
                         </div>
                     </div>
-                    <div className="col-span-3 flex flex-col justify-center   ">
+                    <div className="col-span-3  flex flex-col justify-center   ">
                         {people.length &&
                             people?.slice(0, 1).map((one) => {
                                 return (

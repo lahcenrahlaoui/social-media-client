@@ -1,3 +1,5 @@
+import { GET_POSTS_ALL_FROM_USER } from "constants";
+import { IS_LOADING_POSTS_FOR_PROFILE } from "constants";
 import {
     GET_POST,
     IS_LOADING,
@@ -291,6 +293,39 @@ export const suggestionListReducer = (
                 isLoading: false,
             };
 
+        default:
+            return state;
+    }
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// getting posts
+const postsProfileReducerState = {
+    data: [],
+    isLoading: true,
+};
+export const postsProfileReducer = (
+    state = postsProfileReducerState,
+    action
+) => {
+    switch (action.type) {
+        case IS_LOADING_POSTS_FOR_PROFILE:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case GET_POSTS_ALL_FROM_USER:
+            return {
+                ...state,
+                data: action.payload,
+                isLoading: false,
+            };
+        // case SET_POSTS_ALL:
+        //     return {
+        //         ...state,
+        //         data: [action.payload, ...state.data],
+        //         isLoading: false,
+        //     };
         default:
             return state;
     }
