@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Post from "components/post/Post.js";
+import Post from "components/post/Post";
 import { useEffect } from "react";
 import { getPosts } from "actions";
 import NavBar from "components/Navbar/NavBar.js";

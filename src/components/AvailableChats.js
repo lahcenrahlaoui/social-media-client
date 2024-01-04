@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getFollowingUserAction } from "actions";
 import { Link } from "react-router-dom";
+import SkeletonSmallImages from "./SkeletonSmallImages";
 const Friends = () => {
     const { user } = useAuthContext();
 
@@ -20,9 +21,10 @@ const Friends = () => {
             dispatch(getFollowingUserAction(data, user));
         }
     }, [dispatch, user]);
-    let renderCats;
+    let renderChats;
+    const skeletonRenderArray = [0, 0, 0];
     if (state.data.length > 0) {
-        renderCats = state.data.map((friend) => {
+        renderChats = state.data.map((friend) => {
             return (
                 <Link key={friend.name} to={"/" + friend._id}>
                     <div className="flex items-center justify-center w-[4rem] h-[4rem]   cursor-pointer">
@@ -36,15 +38,37 @@ const Friends = () => {
                 </Link>
             );
         });
+        skeletonRenderArray.pop([0]);
+        skeletonRenderArray.pop([0]);
+        skeletonRenderArray.unshift(...renderChats);
     }
+
+    let skeleton = skeletonRenderArray.map((i, idx) => {
+        if (typeof i !== "number") {
+            return i;
+        } else {
+            return <SkeletonSmallImages key={idx} />;
+        }
+    });
 
     return (
         <div className="sticky top-16    ">
-            <div className="  flex flex-col items-center gap-2 rounded-xl bg-white py-2 border  ">
+            <div
+                className={`  flex flex-col items-center gap-2 rounded-xl bg-white   border ${
+                    renderChats?.length > 0 ? "py-2" : "pt-2"
+                } `}
+            >
                 <div className="font-2xl font-bold">Available Chats</div>
 
                 <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-3 gap-1 ">
-                    {renderCats}
+                    {state.isLoading
+                        ? skeleton
+                        : renderChats || (
+                              <div className="text-lg text-orange-700 bg-orange-100 py-2 px-4 col-span-3 text-center ">
+                                  {" "}
+                                  Follow someone to see new feeds{" "}
+                              </div>
+                          )}
                 </div>
             </div>
         </div>

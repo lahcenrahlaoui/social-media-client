@@ -24,10 +24,21 @@ module.exports = {
                         opacity: "0",
                     },
                 },
+                "go-big": {
+                    from: {
+                        width: "0",
+                        opacity: "0",
+                    },
+                    to: {
+                        height: "100%",
+                        opacity: "1",
+                    },
+                },
             },
             animation: {
                 "slide-down": "slide-down  1s ease-in-out",
                 "slide-up": "slide-up 1s ease-in-out",
+                "go-big": "go-big 5s ease-in-out",
             },
         },
     },

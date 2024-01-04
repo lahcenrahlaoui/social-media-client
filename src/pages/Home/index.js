@@ -53,25 +53,17 @@ function Home() {
 
                     {/* <div
                         className={`hidden lg:block gap-2 col-span-12 lg:col-span-3 px-3 `}
-                    >
-                     
-                     <RightSide focused={focused} />
+                    > 
+                    <RightSide focused={focused} />
                     </div> */}
 
                     <div
-                        className={` 
-                                    flex lg:hidden 
-                                    flex-col 
-                                    gap-8
-                                    ${
-                                        !focused
+                        className={` flex lg:hidden flex-col gap-8
+                                    ${  !focused
                                             ? "focused-opacity-none"
-                                            : "focused-opacity"
-                                    }  
-                                    col-span-12
-                                  
-                                    lg:col-span-3  
-                                    `}
+                                            : "focused-opacity" }  
+                                    col-span-12 
+                                    lg:col-span-3 `}
                     >
                         <Suggestions />
                         <Stories />

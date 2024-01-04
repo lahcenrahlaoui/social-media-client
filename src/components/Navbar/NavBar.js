@@ -49,7 +49,7 @@ const NavBar = ({ user, focused }) => {
                     <div className="flex items-center gap-2  h-full">
                         <img
                             src={user?.image}
-                            className="bg-yellow-200 rounded-full  object-cover  w-12 h-12"
+                            className="  rounded-full  object-cover  w-12 h-12"
                         />
                     </div>
                 </div>
@@ -90,7 +90,9 @@ const NavBar = ({ user, focused }) => {
             <div
                 className={` flex justify-between w-5/6 px-4 py-2 gap-10 h-14 `}
             >
-                <img src={logo_page} style={{ width: 100, height: 50 }} />
+                <Link to={"/"} className="cursor-pointer">
+                    <img src={logo_page} style={{ width: 100, height: 50 }} />
+                </Link>
 
                 <SearchComponent />
 

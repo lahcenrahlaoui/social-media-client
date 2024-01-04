@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { BiX } from "react-icons/bi";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useEffect, useRef, useState } from "react";
@@ -34,7 +33,7 @@ const Post = ({ item }) => {
         : item.content
               .replace(
                   /(^|\s)(#[a-z\d-]+)/gi,
-                  `$1<span className='bg-red-200'>$2</span>`
+                  "$1<span className='bg-red-200'>$2</span>"
               )
               .substring(0, 50);
 
@@ -147,7 +146,7 @@ const Post = ({ item }) => {
                         {/* text  */}
 
                         <Content
-                            showItem={showItem}
+                            showItemshowItem
                             item={item}
                             setShowMore={setShowMore}
                             showMore={showMore}
