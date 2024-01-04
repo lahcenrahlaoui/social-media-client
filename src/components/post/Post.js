@@ -12,6 +12,7 @@ import { BASE_URL } from "constants";
 import { useAuthContext } from "hooks/useAuthContext";
 import Content from "./Content";
 import Icons from "./Icons";
+import { Link } from "react-router-dom";
 
 const Post = ({ item }) => {
     // for text in post
@@ -85,8 +86,7 @@ const Post = ({ item }) => {
         }
     });
 
-    const regularLike = likes[0];
-
+    const regularLike = likes[0] || [];
     const allLikes = Object.values(regularLike)[0];
 
     const [people, setPeople] = useState([]);
@@ -229,7 +229,7 @@ const Post = ({ item }) => {
                             {people.length &&
                                 people?.slice(0, 5).map((one, idx) => {
                                     return (
-                                        <>
+                                        <Link to={"/" + one._id}>
                                             <div
                                                 style={{
                                                     left: `${idx * 0.8}rem`,
@@ -245,7 +245,7 @@ const Post = ({ item }) => {
                                                     className={` h-full w-full realtive object-cover rounded-full`}
                                                 />
                                             </div>
-                                        </>
+                                        </Link>
                                     );
                                 })}
                         </div>

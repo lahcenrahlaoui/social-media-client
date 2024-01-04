@@ -18,7 +18,7 @@ const LikeIcon = ({ item, allLikes, regularLike }) => {
     const heartRef = useRef();
 
     useEffect(() => {
-        if (allLikes.includes(user.email)) {
+        if (allLikes?.includes(user.email)) {
             heartRef?.current?.classList.remove("bands-no");
             heartRef?.current?.classList.add("bands");
         } else {
@@ -91,12 +91,12 @@ const LikeIcon = ({ item, allLikes, regularLike }) => {
                 <div className="flex items-center justify-center absolute bg-white text-[#3e8be9] rounded-full w-3.5 h-3.5 right-0 bottom-0 text-xs">
                     <div
                         className={`   ${
-                            allLikes.includes(user.email) && "text-red-400"
+                            allLikes?.includes(user.email) && "text-red-400"
                         }   `}
                     >
                         {(regularLike !== null &&
                             regularLike !== undefined &&
-                            allLikes.length) ||
+                            allLikes?.length) ||
                             0}
                     </div>
                 </div>
