@@ -15,7 +15,14 @@ import { BiSend } from "react-icons/bi";
 // eslint-disable-next-line no-undef
 const plugins = [createHashtagPlugin({ theme: hashtagStyles })];
 
-const FormPost = ({ focused, setFocused ,  content, setContent , image, setImage64 }) => {
+const FormPost = ({
+    focused,
+    setFocused,
+    content,
+    setContent,
+    image,
+    setImage64,
+}) => {
     // const [content, setContent] = useState(createEditorStateWithText(""));
     // const [image, setImage64] = useState("");
 
@@ -115,7 +122,7 @@ const FormPost = ({ focused, setFocused ,  content, setContent , image, setImage
                                             className="absolute bg-gray-300 rounded-full  hover:bg-white
                                                         right-0 flex items-center justify-center 
                                                         w-4 h-4 text-4xl text-red-700 cursor-pointer"
-                                                    >
+                                        >
                                             <BiX />
                                         </div>
                                         <img
@@ -149,12 +156,12 @@ const FormPost = ({ focused, setFocused ,  content, setContent , image, setImage
                                 />
 
                                 <div
-                                    className=" flex items-center justify-center text-2xl h-10 px-5 bg-gray-200
+                                    className=" flex items-center justify-center text-2xl h-10 px-2 lg:px-5 bg-gray-200
                                             group-hover:border-[#c5ddec] rounded-3xl cursor-pointer 
                                             transition duration-150 "
                                 >
                                     <BiImageAdd />
-                                    <span className="text-sm  cursor-pointer  ">
+                                    <span className="text-sm  cursor-pointer  hidden lg:flex  ">
                                         Media
                                     </span>
                                 </div>
@@ -165,7 +172,7 @@ const FormPost = ({ focused, setFocused ,  content, setContent , image, setImage
                                 text-white transition duration-300 bg-blue-500 hover:bg-blue-600 
                                 focus:outline-none focus:shadow-outline-blue"
                             >
-                                <span className="text-sm  cursor-pointer  ">
+                                <span className="text-sm  cursor-pointer hidden lg:flex  ">
                                     Publish
                                 </span>
 

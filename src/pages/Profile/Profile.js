@@ -10,6 +10,8 @@ import MiddleSide from "./MiddleSide";
 import { useLocation } from "react-router-dom";
 import PostSkeleton from "components/post/PostSkeleton";
 import Hero from "./Hero";
+import FormPost from "pages/Home/FormPost";
+import { createEditorStateWithText } from "@draft-js-plugins/editor";
 
 function Profile() {
     const state = useSelector((state) => state.profilePosts);
@@ -39,11 +41,16 @@ function Profile() {
 
     const image_user = state?.data[0]?.image_user;
 
+
+
     return (
         <div className=" w-full pb-14 bg-[#F4F4F4]  ">
             <NavBar user={user} focused={focused} />
 
             <Hero image_user={image_user} user={user} />
+
+
+           
 
             {state.isLoading ? (
                 <div
@@ -63,8 +70,13 @@ function Profile() {
                      `}
                     >
                         <div className="grid grid-cols-12 gap-4 w-11/12  ">
-                            <div className="col-start-4 col-span-6">
-                                <MiddleSide state={state} user={user} />
+                            <div className=" col-span-12 lg:col-start-2 lg-col-span-6 xl:col-start-2 xl:col-span-10">
+                                <MiddleSide
+                                    state={state}
+                                    user={user}
+                                    focused={focused}
+                                    setFocused={setFocused}
+                                />
                             </div>
                         </div>
                     </div>

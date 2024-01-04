@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { BiX } from "react-icons/bi";
+import { BiBookmark, BiTrash, BiX } from "react-icons/bi";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useEffect, useRef, useState } from "react";
 import ImageComponent from "./ImageComponent";
@@ -53,17 +53,23 @@ const Post = ({ item }) => {
                                 absolute bg-white right-0
                                 transition duration-150 delay-500 ease-in-out origin-top min-w-32"
             >
-                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
-                    Programming
+                 <li className="flex items-center gap-2 py-2.5  rounded-sm pl-5  lg:w-40  hover:bg-sky-300 cursor-pointer">
+                    <BiTrash className="text-red-800 text-xl " />
+
+                    <span>Edit</span>
                 </li>
                 <div className="bg-gray-200 w-full h-px">&nbsp;</div>
 
-                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
-                    DevOps
+                <li className="flex items-center gap-2 py-2.5  rounded-sm pl-5  hover:bg-red-300 cursor-pointer">
+                    <BiTrash className="text-red-800 text-xl " />
+
+                    <span>Delete</span>
                 </li>
                 <div className="bg-gray-200 w-full h-px">&nbsp;</div>
-                <li className="rounded-sm px-10 py-2.5 hover:bg-sky-300 cursor-pointer">
-                    Testing
+                <li className="flex items-center gap-2 py-2.5  rounded-sm pl-5  hover:bg-sky-300 cursor-pointer">
+                    <BiBookmark className="text-yellow-300 text-xl " />
+
+                    <span>Bookmark</span>
                 </li>
             </ul>
         </div>
@@ -93,7 +99,6 @@ const Post = ({ item }) => {
 
     const { user } = useAuthContext();
 
-    console.log(allLikes);
     useEffect(() => {
         (async () => {
             const config = {

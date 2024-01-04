@@ -108,7 +108,7 @@ const Meteo = () => {
                             {weatherMinutely?.weather.description}
                         </div>
 
-                        <div className="flex justify-center gap-1.5 lg:gap-0.5 bg-[#eeeeee70] w-full h-20 mt-4 py-0.5 lg:py-0.75">
+                        <div className="flex justify-center gap-1.5 lg:gap-1 bg-[#eeeeee70] w-full px-3 h-20 mt-4 py-0.5 lg:py-0.75">
                             {renderDays}
                         </div>
 

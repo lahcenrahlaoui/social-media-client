@@ -24,7 +24,6 @@ export const setOneLikeAction = (_id, user) => async (dispatch) => {
     const changeThis = {
         [response.data._id]: response.data.likes,
     };
- 
 
     dispatch({
         type: SET_ONE_LIKE,
@@ -89,7 +88,6 @@ export const getFollowingUserAction = (data, user) => async (dispatch) => {
 
     const response = await getFollowingList(data, user);
 
-   
     dispatch({ type: SET_FOLLOWING_LIST, payload: response.data });
 };
 
@@ -99,7 +97,6 @@ export const getSuggestionAction = (data, user) => async (dispatch) => {
     });
 
     const response = await getSuggestionList(data, user);
-     
 
     dispatch({ type: SET_SUGGESTION_LIST, payload: response.data });
 };
