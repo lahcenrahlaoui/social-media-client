@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSignup } from "hooks/useSignup";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,10 +9,17 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [signup, error, isLoading] = useSignup();
 
+ 
     const navigation = useNavigate();
 
+    const refButton = useRef();
+
+    useEffect(() => {
+        refButton.current.disabled = isLoading;
+    }, [isLoading]);
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const formData = new FormData();
 
         if (!email || !name || !image || !password) {
@@ -23,13 +30,17 @@ function Signup() {
             formData.append("name", name);
             formData.append("password", password);
 
-            await signup(formData);
-            navigation("/");
+            const x = await await signup(formData);
 
-            setEmail("");
-            setName("");
-            setPassword("");
-            setImage64("");
+            if (Object.keys(x).includes("token")) {
+                navigation("/");
+                navigation("/");
+
+                setEmail("");
+                setName("");
+                setPassword("");
+                setImage64("");
+            }
         }
     };
 
@@ -117,12 +128,19 @@ function Signup() {
                         </div>
 
                         <button
+                            ref={refButton}
                             type="submit"
-                            className="w-full text-black bg-sky-600 hover:text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            className={`w-full  text-black bg-sky-600 hover:text-white 
+                            hover:bg-primary-700 focus:ring-4 focus:outline-none ${
+                                isLoading ? "opacity-60" : ""
+                            }
+                            focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 
+                            text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                         >
                             Sign up
                         </button>
-                        <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
+
+                        <p className="text-sm text-center text-gray-800 ">
                             Already have an account ?{" "}
                             <Link
                                 to={"/auth/signin"}
@@ -131,6 +149,11 @@ function Signup() {
                                 Sign in
                             </Link>
                         </p>
+                        {error && (
+                            <div className="text-center text-red-600 text-sm  py-2 px-4 bg-red-100">
+                                Error : {error}
+                            </div>
+                        )}
                     </form>
                 </div>
             </div>

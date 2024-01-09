@@ -11,7 +11,7 @@ import Profile from "pages/Profile/Profile";
 function App() {
     const { user } = useAuthContext();
 
-    console.log(user);
+ 
     return (
         <div className=" flex items-center justify-center app">
             <BrowserRouter>

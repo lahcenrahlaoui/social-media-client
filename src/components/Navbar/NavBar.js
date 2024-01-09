@@ -63,20 +63,20 @@ const NavBar = ({ user, focused }) => {
                                     overflow-hidden  transition-all duration-300 ease-in-out 
                 `}
             >
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    <Link to={"/" + user._id}>Home</Link>
-                </li>
+                <Link to={"/" + user._id}>
+                    <li className="block px-4 py-2 hover:bg-gray-200 ">Home</li>
+                </Link>
 
-                <li className="block px-4 py-2 hover:bg-gray-200 ">
-                    <Link
-                        to={"/auth/signin"}
-                        className=" font-semibold capitalize"
-                        href="#"
-                        onClick={handleLougout}
-                    >
+                <Link
+                    to={"/auth/signin"}
+                    className=" font-semibold capitalize hover:bg-gray-200"
+                    href="#"
+                    onClick={handleLougout}
+                >
+                    <li className="block px-4 py-2 hover:bg-gray-200 ">
                         logout
-                    </Link>
-                </li>
+                    </li>
+                </Link>
             </ul>
         </div>
     );

@@ -35,8 +35,7 @@ export const getPostsAction = (user) => async (dispatch) => {
 
     const response = await fetchPostsAll(user);
 
-    console.log(response.data);
-    const ids = response.data.map((d) => d._id);
+     const ids = response.data.map((d) => d._id);
     const likes = response.data.map((d) => d.likes);
 
     const result = ids.map((item, idx) => {

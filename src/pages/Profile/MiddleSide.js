@@ -16,12 +16,6 @@ const MiddleSide = ({ state, user, focused, setFocused }) => {
     });
 
     const pathname = useLocation().pathname.split("/")[1];
-    console.log("pathname");
-    console.log("pathname");
-    console.log("pathname");
-    console.log("pathname");
-    console.log("pathname");
-    console.log(pathname);
 
     const [content, setContent] = useState(createEditorStateWithText(""));
     const [image, setImage64] = useState("");
@@ -48,17 +42,18 @@ const MiddleSide = ({ state, user, focused, setFocused }) => {
                         )}
 
                         {!renderItems.length ? (
-                            <div className="flex items-center justify-center bg-white h-40">
-                                <div className="flex text-xl items-center justify-center gap-2">
+                            <div className="flex items-center justify-center  h-40">
+                                <div className="flex text-xl items-center justify-center bg-white h-full w-4/6 gap-2">
                                     <spna className="text-3xl">
-                                        {" "}
-                                        <BiSad />{" "}
-                                    </spna>{" "}
+                                        <BiSad />
+                                    </spna>
                                     There is no posts yet in this profile
                                 </div>
                             </div>
                         ) : (
-                            renderItems
+                            <div className="flex flex-col items-center justify-center  ">
+                                <div className="flex flex-col w-4/6 gap-6">{renderItems}</div>
+                            </div>
                         )}
                     </div>
                 </div>

@@ -53,7 +53,7 @@ const Post = ({ item }) => {
                                 absolute bg-white right-0
                                 transition duration-150 delay-500 ease-in-out origin-top min-w-32"
             >
-                 <li className="flex items-center gap-2 py-2.5  rounded-sm pl-5  lg:w-40  hover:bg-sky-300 cursor-pointer">
+                <li className="flex items-center gap-2 py-2.5  rounded-sm pl-5  lg:w-40  hover:bg-sky-300 cursor-pointer">
                     <BiTrash className="text-red-800 text-xl " />
 
                     <span>Edit</span>
@@ -231,10 +231,10 @@ const Post = ({ item }) => {
                 >
                     <div className={`h-20 py-2 px-4   flex   col-span-2 `}>
                         <div className="relative w-fit flex items-center   ">
-                            {people.length &&
+                            {!!people.length &&
                                 people?.slice(0, 5).map((one, idx) => {
                                     return (
-                                        <Link to={"/" + one._id}>
+                                        <Link to={"/" + one._id} key={idx}>
                                             <div
                                                 style={{
                                                     left: `${idx * 0.8}rem`,
@@ -256,10 +256,13 @@ const Post = ({ item }) => {
                         </div>
                     </div>
                     <div className="col-span-3  flex flex-col justify-center   ">
-                        {people.length &&
-                            people?.slice(0, 1).map((one) => {
+                        {!!people.length &&
+                            people?.slice(0, 1).map((one, idx) => {
                                 return (
-                                    <div className="px-0.5 text-sm font-bold">
+                                    <div
+                                        className="px-0.5 text-sm font-bold"
+                                        key={idx}
+                                    >
                                         {one.name}
                                     </div>
                                 );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useSignin } from "hooks/useSignin";
 
@@ -10,6 +10,12 @@ function Signin() {
     const [signin, error, isLoading] = useSignin();
 
     const navigation = useNavigate();
+    const refButton = useRef();
+
+    useEffect(() => {
+        refButton.current.disabled = isLoading;
+    }, [isLoading]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -65,6 +71,7 @@ function Signin() {
                             </div>
 
                             <button
+                                ref={refButton}
                                 type="submit"
                                 className="w-full text-black bg-sky-600 hover:text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
@@ -74,7 +81,9 @@ function Signin() {
                                 Don’t have an account yet?{" "}
                                 <Link
                                     to={"/auth/signup"}
-                                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                    className={`font-medium text-primary-600 hover:underline dark:text-primary-500  ${
+                                        isLoading ? "opacity-60" : ""
+                                    }`}
                                 >
                                     Sign up
                                 </Link>

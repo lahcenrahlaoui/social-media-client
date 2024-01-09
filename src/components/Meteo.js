@@ -1,21 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import axios from "axios";
-import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { useAuthContext } from "hooks/useAuthContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import x from "images/download.svg";
 
-import { ReturnIcon } from "./ReturnIcon";
 import { format } from "date-fns";
+import { ReturnIcon } from "./ReturnIcon";
 const Meteo = () => {
     const { user } = useAuthContext();
 
     // const [followingList, setFollowingsList] = useState([]);
 
-
-    
     const [myLocation, setMyLocation] = useState({
         latitude: "",
         longitude: "",
@@ -57,8 +54,6 @@ const Meteo = () => {
 
                 const urlWeekly = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${apikey}&days=7`;
                 const responseWeekly = await axios.get(urlWeekly);
-
-                // console.log(responseWeekly.data.data);
 
                 setWeatherMinutely(responseMinutely.data.data[0]);
                 setWeatherWeekly(responseWeekly.data.data);
@@ -113,7 +108,7 @@ const Meteo = () => {
                         </div>
 
                         <div className=" text-4xl lg:text-lg  font-semibold ">
-                            {weatherMinutely?.city_name} , 
+                            {weatherMinutely?.city_name} ,
                             {weatherMinutely?.timezone}
                         </div>
                     </div>

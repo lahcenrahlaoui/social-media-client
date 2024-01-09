@@ -1,8 +1,6 @@
 import AvailableChats from "components/AvailableChats.js";
 import Meteo from "components/Meteo";
 
-// import Meteo from "components/Meteo.js";
-
 const LeftSide = ({ focused }) => {
     return (
         <div
@@ -10,7 +8,7 @@ const LeftSide = ({ focused }) => {
                 !focused ? "focused-opacity-none" : "focused-opacity"
             } flex flex-col gap-2 col-span-12 lg:col-span-3  px-3  `}
         >
-            <Meteo />
+            {process.env.NODE_ENV !== "development" && <Meteo />}
             <AvailableChats />
         </div>
     );
