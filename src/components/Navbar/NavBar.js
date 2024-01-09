@@ -90,8 +90,8 @@ const NavBar = ({ user, focused }) => {
             <div
                 className={` flex justify-between w-5/6 px-4 py-2 gap-10 h-14 `}
             >
-                <Link to={"/"} className="cursor-pointer">
-                    <img src={logo_page} style={{ width: 100, height: 50 }} />
+                <Link to={"/"} className="cursor-pointer ">
+                    <img src={logo_page} style={{ width: 100, height: 45 }} />
                 </Link>
 
                 <SearchComponent />
