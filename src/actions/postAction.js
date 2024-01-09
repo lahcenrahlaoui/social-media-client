@@ -5,6 +5,7 @@ import {
     fetchPostsProfile,
 } from "api";
 import { GET_POSTS_ALL_FROM_USER } from "constants";
+import { IS_LOADING_POSTS } from "constants";
 import { IS_LOADING_POSTS_FOR_PROFILE } from "constants";
 import { IS_LOADING_POSTS_FROM_USER } from "constants";
 import {
@@ -18,7 +19,7 @@ import {
 
 export const getPostAction = (id, user) => async (dispatch) => {
     dispatch({
-        type: IS_LOADING,
+        type: IS_LOADING_POSTS,
     });
     const response = await fetchPostById(id);
 
@@ -30,12 +31,12 @@ export const getPostAction = (id, user) => async (dispatch) => {
 
 export const getPostsAction = (user) => async (dispatch) => {
     dispatch({
-        type: IS_LOADING,
+        type: IS_LOADING_POSTS,
     });
 
     const response = await fetchPostsAll(user);
 
-     const ids = response.data.map((d) => d._id);
+    const ids = response.data.map((d) => d._id);
     const likes = response.data.map((d) => d.likes);
 
     const result = ids.map((item, idx) => {

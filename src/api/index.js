@@ -6,6 +6,7 @@ const credentials = {
     withCredentials: true,
 };
 
+// posts 
 export const fetchPostById = async (id, user) => {
     const config = {
         headers: {

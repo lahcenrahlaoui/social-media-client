@@ -2,7 +2,7 @@ export const GET_POST = "GET_POST";
 export const GET_POSTS_ALL = "GET_POSTS_ALL";
 export const GET_USER = "GET_USER";
 
-export const IS_LOADING = "IS_LOADING";
+export const IS_LOADING_POSTS = "IS_LOADING_POSTS";
 
 export const IS_LOADING_COMMENTS_CREATION = "IS_LOADING_COMMENTS_CREATION";
 

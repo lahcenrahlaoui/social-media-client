@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getFollowingUserAction } from "actions";
 import { Link } from "react-router-dom";
-import SkeletonSmallImages from "./SkeletonSmallImages";
-const Friends = () => {
+import SkeletonSmallImages from "../../../components/SkeletonSmallImages";
+const FollowingList = () => {
     const { user } = useAuthContext();
 
     // const [followingList, setFollowingsList] = useState([]);
@@ -58,7 +58,7 @@ const Friends = () => {
                     renderChats?.length > 0 ? "py-2" : "pt-2"
                 } `}
             >
-                <div className="font-2xl font-bold">Available Chats</div>
+                <div className="font-2xl font-bold">Following List </div>
 
                 <div className="grid  grid-flow-col lg:grid-flow-row lg:grid-cols-3 gap-1 ">
                     {state.isLoading
@@ -75,4 +75,4 @@ const Friends = () => {
     );
 };
 
-export default Friends;
+export default FollowingList;

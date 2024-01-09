@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import x from "images/download.svg";
 
 import { format } from "date-fns";
-import { ReturnIcon } from "./ReturnIcon";
+import { ReturnIconMeteo } from "./ReturnIconMeteo";
 const Meteo = () => {
     const { user } = useAuthContext();
 
@@ -73,7 +73,7 @@ const Meteo = () => {
                     {dayName.slice(0, 3)}
                 </div>
                 <div className="text-base lg:text-xl ">
-                    <ReturnIcon code={day?.weather?.code} />
+                    <ReturnIconMeteo code={day?.weather?.code} />
                 </div>
                 <div className="text-sm   lg:text-md ">
                     {Math.round(day.temp)}
@@ -97,7 +97,7 @@ const Meteo = () => {
                             <span className="font-thin text-5xl">&deg;</span>
                         </div>
                         <div className="text-6xl ">
-                            <ReturnIcon code={weatherMinutely?.weather?.code} />
+                            <ReturnIconMeteo code={weatherMinutely?.weather?.code} />
                         </div>
                         <div className="font-semibold text-sm">
                             {weatherMinutely?.weather.description}

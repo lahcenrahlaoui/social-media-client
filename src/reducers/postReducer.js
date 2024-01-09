@@ -2,7 +2,7 @@ import { GET_POSTS_ALL_FROM_USER } from "constants";
 import { IS_LOADING_POSTS_FOR_PROFILE } from "constants";
 import {
     GET_POST,
-    IS_LOADING,
+    IS_LOADING_POSTS,
     GET_POSTS_ALL,
     SET_POSTS_ALL,
     SET_LIKE,
@@ -28,7 +28,7 @@ const postReducerState = {
 };
 export const postReducer = (state = postReducerState, action) => {
     switch (action.type) {
-        case IS_LOADING:
+        case IS_LOADING_POSTS:
             return {
                 ...state,
                 isLoading: true,
@@ -53,7 +53,7 @@ const postsReducerState = {
 };
 export const postsReducer = (state = postsReducerState, action) => {
     switch (action.type) {
-        case IS_LOADING:
+        case IS_LOADING_POSTS:
             return {
                 ...state,
                 isLoading: true,

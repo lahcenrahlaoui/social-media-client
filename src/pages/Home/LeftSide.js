@@ -1,5 +1,5 @@
-import AvailableChats from "components/AvailableChats.js";
-import Meteo from "components/Meteo";
+import AvailableChats from "pages/Home/components/FollowingList.js";
+import Meteo from "pages/Home/components/Meteo";
 
 const LeftSide = ({ focused }) => {
     return (

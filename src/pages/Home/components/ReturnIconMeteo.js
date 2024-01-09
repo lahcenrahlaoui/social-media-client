@@ -133,7 +133,7 @@ const icons = {
     900: <WiNa />,
 };
 
-export const ReturnIcon = ({ code }) => {
+export const ReturnIconMeteo = ({ code }) => {
     const icon = icons[code];
 
     return icon;
