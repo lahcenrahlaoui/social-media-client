@@ -97,12 +97,15 @@ function Signin() {
                                 >
                                     Sign up
                                 </Link>
-                                <span
+                                <button
+                                    ref={refButton}
                                     onClick={handleGuestAuth}
-                                    className="block text-black font-medium cursor-pointer  my-2"
+                                    className=" w-1/2 text-black bg-red-400 hover:text-white  
+                                                font-medium rounded-lg text-sm 
+                                                px-5 py-2.5 text-center my-2"
                                 >
                                     or login as a guest
-                                </span>
+                                </button>
                             </p>
                             {error && (
                                 <div className="text-center text-red-600 text-sm  py-2 px-4 bg-red-100">
