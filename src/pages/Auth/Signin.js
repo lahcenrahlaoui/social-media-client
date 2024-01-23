@@ -28,6 +28,16 @@ function Signin() {
             }
         }
     };
+    const handleGuestAuth = async () => {
+        const e = "boldwood@boldwood.com";
+        const p = "CBKV1DTHEEC2DHx@";
+
+        const x = await signin(e, p);
+
+        if (Object.keys(x).includes("token")) {
+            navigation("/");
+        }
+    };
 
     return (
         <>
@@ -77,8 +87,8 @@ function Signin() {
                             >
                                 Sign in
                             </button>
-                            <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-                                Don’t have an account yet?{" "}
+                            <p className="text-sm text-center   text-gray-500 dark:text-gray-400">
+                                Don’t have an account yet ?
                                 <Link
                                     to={"/auth/signup"}
                                     className={`font-medium text-primary-600 hover:underline dark:text-primary-500  ${
@@ -87,6 +97,12 @@ function Signin() {
                                 >
                                     Sign up
                                 </Link>
+                                <span
+                                    onClick={handleGuestAuth}
+                                    className="block text-black font-medium cursor-pointer  my-2"
+                                >
+                                    or login as a guest
+                                </span>
                             </p>
                             {error && (
                                 <div className="text-center text-red-600 text-sm  py-2 px-4 bg-red-100">
